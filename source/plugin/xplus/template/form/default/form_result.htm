@@ -1,0 +1,18 @@
+<!--{template xplus:common/header}-->
+<!--{template xplus:common/nav_header}-->
+<div id="wp" class="wp">
+	<div class="mn">
+		<div class="info wx">
+			<h1>{$formitem['title']}</h1>
+			<p>{$formitem['description']}</p>
+			<p style="color:#900;">{lang form_submit_succeed}<!--{if $resultnum}-->$resultnum_lang<!--{else}-->{lang form_total_none}<!--{/if}--></p>
+		</div>
+		<!--{if $formvalue}-->
+		<form id="form" action="form.php?mod=post">
+			<!--{template xplus:form/default/form_field}-->
+		</form>
+		<!--{/if}-->
+	<!--{template xplus:common/nav_footer}-->
+	</div>
+</div>
+<!--{template xplus:common/footer}-->

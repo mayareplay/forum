@@ -1,0 +1,167 @@
+<div class="mbn">
+	<!--{if $activity['thumb']}--><img src="$activity['thumb']" width="{if $activity[width] > 230}230{else}$activity[width]{/if}" /><!--{else}--><img src="{IMGDIR}/nophoto.gif" width="230" height="230" /><!--{/if}-->
+		<dl>
+			<dt>{lang activity_type}: <strong>$activity[class]</strong></dt>
+			<dt>
+            
+             <!--{if $activity['ext_jingpaitype']}-->
+            开奖时间:
+            <!--{else}-->
+            {lang activity_starttime}:
+            <!--{/if}-->
+
+				<!--{if $activity['starttimeto']}-->
+					{lang activity_start_between}
+				<!--{else}-->
+					$activity[starttimefrom]
+				<!--{/if}-->
+			</dt>
+			<dt>{lang activity_space}: $activity[place]</dt>
+			<dt>{lang gender}:
+				<!--{if $activity['gender'] == 1}-->
+					{lang male}
+				<!--{elseif $activity['gender'] == 2}-->
+					{lang female}
+				<!--{else}-->
+					 {lang unlimited}
+				<!--{/if}-->
+			</dt>
+            
+          
+			<dd>
+				<!--{if $activity['ext_needverifiy'] == 0}-->
+ 					不需要审核
+                <!--{else}-->
+                    需要审核
+				<!--{/if}-->
+            </dd>
+            
+            
+            
+			<!--{if $activity['cost']}-->
+				<dt>{lang activity_payment}: $activity[cost] {lang payment_unit}</dt>
+			<!--{/if}-->
+		</dl>
+		<!--{if !$_G['forum_thread']['is_archived']}-->
+        
+         <!--{if $activity['credit']}-->
+		<dl >
+			<dt>扣除威望: <span style="color: red;">$activity['credit']</span> 个</dt>
+	
+		</dl>
+		<!--{/if}-->
+        
+        <!--{if $activity['ext_credit_2']}-->
+		<dl >
+			<dt>扣除旺财: 	 <span style="color: red;">$activity['ext_credit_2']</span>  个</dt>
+	
+		</dl>
+		<!--{/if}-->
+        
+        
+         <!--{if $activity['ext_jingpaitype']}-->
+		<dl >
+			<dt>积分竞拍:  起拍 $activity['ext_jingpai']
+                <!--{if $activity['ext_jingpaitype'] == 1}-->
+				威望
+                <!--{else}-->
+                旺财  
+                <!--{/if}-->
+                , 最大获奖人数 $activity['ext_jiangnum'] 名</dt>
+	
+		</dl>
+		<!--{/if}-->
+        
+        
+                
+        <!--{if $activity['number']<=9999}-->
+		<dl class="nums mtw">
+			<dt>{lang activity_already}: <em>$allapplynum</em> {lang activity_member_unit} , 已审核: <em>$applynumbers</em> {lang activity_member_unit} </dt>
+			<dd>
+				
+                
+
+				<!--{if $post['invisible'] == 0 && ($_G['forum_thread']['authorid'] == $_G['uid'] || (in_array($_G['group']['radminid'], array(1, 2)) && $_G['group']['alloweditactivity']) || ( $_G['group']['radminid'] == 3 && $_G['forum']['ismoderator'] && $_G['group']['alloweditactivity']))}-->
+					<span class="xi1">{lang activity_mod}</span>
+				<!--{/if}-->
+			</dt>
+		</dl>
+        
+                
+                
+                
+			</dd>
+		</dl>
+        <!--{/if}-->
+        
+        
+        
+        
+		<dl>
+
+                     
+			<!--{if $activity['expiration']}-->
+				<dt>{lang post_closing}: $activity[expiration]</dt>
+			<!--{/if}-->
+			<dt>
+            
+				<!--{if $post['invisible'] == 0}-->
+					<!--{if $applied && $isverified < 2}-->
+						<p class="xg1 xs1"><!--{if !$isverified}-->{lang activity_wait}<!--{else}-->{lang activity_join_audit}<!--{/if}--></p>
+						<!--{if !$activityclose}-->
+                        <!--{/if}-->
+					<!--{elseif !$activityclose}-->
+                        <!--{if $isverified != 2}-->
+                        <!--{else}-->
+                        <p class="pns mtn">
+                            <input value="{lang complete_data}" name="ijoin" id="ijoin" />
+                        </p>
+                        <!--{/if}-->
+					<!--{/if}-->
+				<!--{/if}-->
+                
+			</dt>
+		</dl>
+        
+        
+		<!--{/if}-->
+</div>
+
+
+
+
+<div id="postmessage_$post[pid]" class="postmessage">$post[message]</div>
+
+
+<!--{if $applylist}-->
+<div class="bm ptn pbn xs1">
+	<div class="bm_c">
+    <p class="pd5">{lang activity_new_join} ($applynumbers {lang activity_member_unit})</p>
+    <table class="dt" cellpadding="5" cellspacing="5">
+        <tr>
+            <th >&nbsp;</th>
+            <!--{if $activity['cost']}-->
+            <th >{lang activity_payment}</th>
+            <!--{/if}-->
+            <th>{lang activity_jointime}</th>
+        </tr>
+        <!--{loop $applylist $apply}-->
+            <tr>
+                <td>
+                    <a target="_blank" href="home.php?mod=space&uid=$apply[uid]">$apply[username]</a>
+                </td>
+                <!--{if $activity['cost']}-->
+                <td><!--{if $apply[payment] >= 0}-->$apply[payment] {lang payment_unit}<!--{else}-->{lang activity_self}<!--{/if}--></td>
+                <!--{/if}-->
+                <td>$apply[dateline]</td>
+            </tr>
+        <!--{/loop}-->
+    </table>
+    </div>
+</div>
+<!--{/if}-->
+
+
+
+
+

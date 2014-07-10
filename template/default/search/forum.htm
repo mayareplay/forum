@@ -1,0 +1,40 @@
+<!--{subtemplate search/header}-->
+<div id="ct" class="cl w">
+	<div class="mw">
+		<form class="searchform" method="post" autocomplete="off" action="search.php?mod=forum" onsubmit="return searchbtnclick()">
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+
+			<!--{subtemplate search/pubsearch}-->
+			<!--{hook/forum_top}-->
+
+			<!--{eval $policymsgs = $p = '';}-->
+			<!--{loop $_G['setting']['creditspolicy']['search'] $id $policy}-->
+			<!--{block policymsg}--><!--{if $_G['setting']['extcredits'][$id][img]}-->$_G['setting']['extcredits'][$id][img] <!--{/if}-->$_G['setting']['extcredits'][$id][title] $policy $_G['setting']['extcredits'][$id][unit]<!--{/block}-->
+			<!--{eval $policymsgs .= $p.$policymsg;$p = ', ';}-->
+			<!--{/loop}-->
+			<!--{if $policymsgs}--><p>{lang search_credit_msg}</p><!--{/if}-->
+		</form>
+
+		<!--{if !empty($searchid) && submitcheck('searchsubmit', 1)}-->
+			<!--{subtemplate search/thread_list}-->
+		<!--{/if}-->
+
+	</div>
+</div>
+
+<style>
+#bdcs{display:none}
+</style>
+<script>
+function searchbtnclick(){
+    document.getElementById('bdcs-search-form-input').value=document.getElementById('scform_srchtxt').value;
+    //alert(document.getElementById('bdcs-search-form-input').value)
+    document.getElementById('bdcs-search-form').target="_blank";
+    document.getElementById('bdcs-search-form').submit();
+    return false;
+}
+</script>
+<script type="text/javascript">document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E%3Cscript charset="utf-8" src="http://rp.baidu.com/customer_search/api/js?sid=12015187315164804636') + '&t=' + (Math.ceil(new Date()/3600000)) + unescape('"%3E%3C/script%3E'));</script>
+<!--{hook/forum_bottom}-->
+
+<!--{subtemplate search/footer}-->

@@ -1,0 +1,61 @@
+<!--{template common/header}-->
+<div id="ct" class="wp cl">
+	<h1 class="mt"><img class="vm" src="{IMGDIR}/tag.gif" alt="tag" /> {lang threadlink:threadlink}</h1>
+<div class="bm tl">
+	<div class="th">
+		<table cellspacing="0" cellpadding="0">
+			<tbody>
+			<tr>
+				<th><h2>{lang threadlink:threadlink}</h2></th>
+				<td class="by"></td>
+				<td class="by"></td>
+				<td class="num"></td>
+				<td class="by"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="bm_c">
+		<table cellspacing="0" cellpadding="0">
+		<!--{if $threads}-->
+			<!--{loop $threads $thread}-->
+		<tbody><tr>
+			<td class="icn">
+				<a href="forum.php?mod=viewthread&tid={$thread[tid]}" title="" target="_blank">
+				<img src="{IMGDIR}/folder_new.gif">
+				</a>
+			</td>
+			<th>
+				<a href="forum.php?mod=viewthread&tid={$thread[tid]}" target="_blank">{$thread[subject]}</a>
+				<img src="static/image/filetype/image_s.gif" alt="attach_img" title="!attach_img!" align="absmiddle">
+			</th>
+			<td class="by"></td>
+			<td class="by">
+				<cite>
+					<a href="home.php?mod=space&uid={$thread[authorid]}" c="1">{$thread[author]}</a>
+				</cite>
+				<em><span>{$thread[dateline]}</span></em>
+			</td>
+			<td class="num">
+				<a href="forum.php?mod=viewthread&tid={$thread[tid]}" class="xi2">{$thread[replies]}</a>
+				<em>{$thread[views]}</em>
+			</td>
+			<td class="by">
+				<cite><a href="home.php?mod=space&username={$thread[lastposter]}" c="1">{$thread[lastposter]}</a></cite>
+				<em><a href="forum.php?mod=redirect&tid={$thread[tid]}&goto=lastpost#lastpost">{$thread[lastpost]}</a></em>
+			</td>
+		</tr>
+		</tbody>
+		<!--{/loop}-->
+		<!--{/if}-->
+		<!--{if $multipage}-->
+		<tbody><tr><td colspan="6">$multipage</td>
+		</tr>
+		</tbody>
+		<!--{/if}-->
+</table>
+</div>
+</div>
+
+</div>
+<!--{template common/footer}-->

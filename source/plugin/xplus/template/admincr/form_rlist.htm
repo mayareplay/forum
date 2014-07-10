@@ -1,0 +1,94 @@
+<div class="bm bw0">  
+	<div class="exfm">
+		<h2>{lang xplus:form_rlist_search}</h2>
+        <form action="plugin.php?id=xplus:admincr&mod=form&action=rlist" method="POST">
+            <input type="hidden" value="{FORMHASH}" name="formhash"/>
+            <input type="hidden" value="{$formid}" name="formid" /> 
+            <table cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <th width="15%">{lang xplus:form_rlist_uid}:</th>
+                    <td width="35%">
+                        <input type="text" name="searchfield[uid][value]" value="" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:form_rlist_ip}:</th>
+                    <td width="35%">
+                        <input type="text" name="searchfield[ip][value]" value="" class="px" style="width: 180px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td>
+                        <button type="submit" name="searchsubmit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                    </td>
+                    <th></th>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+	</div>
+    <!--{if $do == 'valuedetail'}-->
+    <table class="dt lt">
+        <tr>
+            <th width="5"></th>
+			<th width="60">{lang xplus:form_fieldlist_name}</th>
+            <th width="60">{lang xplus:form_fieldlist_varname}</th>
+            <th width="240">{lang xplus:form_rlist_field_value}</th>           
+		</tr>
+        <tr>   
+            <td></td>
+            <td>{lang xplus:form_rlist_uid}</td>
+            <td>uid</td>
+            <td>$formvalue[uid]</td>         
+        </tr>
+        <tr>
+            <td></td>
+            <td>{lang xplus:form_rlist_username}</td>
+            <td>username</td>
+            <td>$formvalue[username]</td>         
+        </tr>
+        <tr>
+            <td></td>
+            <td>{lang xplus:form_rlist_ip}</td>
+            <td>ip</td>
+            <td>$formvalue[ip]</td>         
+        </tr>
+        <!--{loop $itemfieldarray $itemfield}-->
+        <tr>
+            <td></td>
+            <td>{$itemfield[title]}</td>
+            <td>{$itemfield[identifier]}</td>
+            <td>{$formvalue[$itemfield[identifier]]}</td>         
+        </tr>
+        <!--{/loop}-->
+    </table>
+    <!--{else}-->
+    <form method="POST" action="plugin.php?id=xplus:admincr&mod=form&action=rlist"> 
+        <input type="hidden" value="{FORMHASH}" name="formhash"/>
+        <input type="hidden" value="{$formid}" name="formid" /> 
+        <table class="dt lt">
+            <tr>
+                <th width="20"></th>
+				<th width="60">{lang xplus:form_rlist_username}</th>
+                <th width="80">{lang xplus:form_rlist_posttime}</th>
+                <th width="240">{lang xplus:list_operation}</th>           
+			</tr>
+            <!--{loop $userlist $user}-->
+            <tr>
+                <td><input class="pc" type="checkbox" name="delete[]" value="$user[valueid]" /></td>
+				<td>{$user[username]}</td>
+                <td>{$user[dateline]}</td>
+                <td><a href="plugin.php?id=xplus:admincr&mod=form&action=rlist&formid=$formid&do=valuedetail&valueid={$user[valueid]}">{lang xplus:form_fieldlist_tail}</a></td>           
+			</tr>
+            <!--{/loop}-->
+            <tr>
+                <td class="nb" colspan="8" >
+                    <label for="chkall" onclick="checkall(this.form, 'delete')"><input type="checkbox" name="chkall" id="chkall" class="pc" />{lang xplus:form_all}</label>&nbsp;
+                    <button type="submit" name="delsubmit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <!--{/if}-->
+</div>

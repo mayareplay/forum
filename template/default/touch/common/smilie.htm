@@ -1,0 +1,36 @@
+ <style>
+			.bg{ background:none;}
+            .bq_img{margin-top: 5px;}
+        	.bq_img{ padding:0px 10px 0px 10px;}
+			.bq_img { float:left; padding-left:2px; padding-right:2px;}
+			.bq_img  img{ width:24px; height:24px;}
+ </style>  
+
+ <script>
+ $(function(){
+	$(document).on('click','.sml',function(){
+		
+		var html = $('#needmessage').val();
+		html+=$(this).attr('alt');
+		$('#needmessage').val(html);
+        $('.bq_img').hide();
+			
+	});
+    
+    $('.img_z').click(function(){
+        $('.img_z').toggleClass('img_c');
+        $('.bq_img').toggle();
+    });
+
+});
+ </script>
+ 
+ 
+<div class="bq_img" style="display: none;">
+	<!--{eval $replacearr = $_smiles['replacearray'];}-->
+	<!--{loop $replacearr $k $src}-->
+		<!--{eval $k=str_replace("/","",stripslashes($_smiles['searcharray'][$k]));}-->
+		<img class="sml" src="static/image/smiley/default/{$src}" alt="$k" />
+	<!--{/loop}-->
+
+</div>

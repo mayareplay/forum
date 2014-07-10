@@ -1,0 +1,27 @@
+<!--{template xplus:common/header}-->
+<!--{template xplus:common/nav_header}-->
+<div id="wp" class="wp">
+	<div class="mn">
+		<div class="info wx">
+			<h1>{$formitem['title']}</h1>
+			<p>{$formitem['description']}</p>
+			<!--{if $resultnum}-->
+			<p>$resultnum_lang</p>
+			<!--{/if}-->
+			<!--{if $needlogin}-->
+			<p style="color:#900;">{lang needlogin}</p>
+			<!--{/if}-->
+		</div>
+		<form id="form" enctype="multipart/form-data" onsubmit="return valida_ajaxpost(this);" action="plugin.php?id=xplus:form&mod=post" method="post">
+			<input type="hidden" name="handlekey" value="formresult" />
+			<input type="hidden" name="fid" value="$formid" />
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<!--{if $iframe}--><input type="hidden" name="iframe" value="$iframe" /><!--{/if}-->
+			<!--{if $bgcolor}--><input type="hidden" name="bgcolor" value="$bgcolor" /><!--{/if}-->
+			<!--{template xplus:form/default/form_field}-->
+		</form>
+		<div id="return_formresult" sytle="display:none;">&nbsp;</div>
+	<!--{template xplus:common/nav_footer}-->
+	</div>
+</div>
+<!--{template xplus:common/footer}-->

@@ -1,0 +1,75 @@
+<ul class="tbmu">
+    <li><a href="plugin.php?id=xplus:admincr&mod=form&action=fieldclass&type=admin">{lang xplus:form_fieldclass}</a></li>
+    <li><span class="pipe">|</span></li>
+    <li id="addjs1" class="hasdropmenu" onmouseover="dropmenu(this);">
+        <!--{if $classs[$classid]}-->
+        <a href="plugin.php?id=xplus:admincr&mod=form&action=fieldlist&type=admin&classid={$class[classid]}" class="a">$classs[$classid][title]</a>
+        <!--{else}-->
+        <a href="plugin.php?id=xplus:admincr&mod=form&action=fieldlist&type=admin" class="a">{lang xplus:form_fieldlist}</a>
+        <!--{/if}-->
+        <div id="addjs1child" class="dropmenu1" style="position: absolute; z-index: 301; left: 169px; top: 28px; display: none;">
+    		<!--{loop $classs $class}-->
+    		<a href="plugin.php?id=xplus:admincr&mod=form&action=fieldlist&type=admin&classid={$class[classid]}" onclick="">{$class[title]}</a>
+    		<!--{/loop}-->
+		</div>
+    </li>
+</ul>
+<div class="bm bw0">
+	<script type="text/JavaScript">
+		var rowtypedata = [
+			[
+				[1, '', ''],
+				[1, '<input type="text" class="px" size="2" name="newdisplayorder[]" value="0">', ''],
+				[1, '<input type="text" class="px" size="35" name="newtitle[]">'],
+				[1, '<input type="text" class="px" size="15" name="newidentifier[]">'],
+				[1, '<select name="newtype[]"><option value="number">{lang xplus:formfield_type_number}</option><option value="qq">{lang xplus:formfield_type_qq}</option><option value="mobile">{lang xplus:formfield_type_mobile}</option><option value="telephone">{lang xplus:formfield_type_telephone}</option><option value="text" selected>{lang xplus:formfield_type_text}</option><option value="custom">{lang xplus:formfield_type_custom}</option><option value="textarea">{lang xplus:formfield_type_textarea}</option><option value="radio">{lang xplus:formfield_type_radio}</option><option value="checkbox">{lang xplus:formfield_type_checkbox}</option><option value="select">{lang xplus:formfield_type_select}</option><option value="calendar">{lang xplus:formfield_type_calendar}</option><option value="email">{lang xplus:formfield_type_email}</option><option value="image">{lang xplus:formfield_type_image}</option><option value="url">{lang xplus:formfield_type_url}</option></select>'],
+				[1, '']
+			],
+		];
+	</script>
+	<form name="cpform" method="post" autocomplete="off" action="plugin.php?id=xplus:admincr&mod=form&action=fieldlist&classid={$classid}" id="cpform">
+		<input name="formhash" value="{FORMHASH}" type="hidden">
+		<input id="formscrolltop" name="scrolltop" value="" type="hidden">
+		<input name="anchor" value="" type="hidden">
+		<table class="dt mtm lt">
+			<tr>
+				<th width="20">&nbsp;</th>
+				<th width="60">{lang xplus:form_field_order}</th>
+				<th width="260">{lang xplus:form_fieldlist_name}</th>  
+				<th width="130">{lang xplus:form_fieldlist_varname}</th> 
+				<th width="160">{lang xplus:form_field_type}</th> 
+				<th>{lang xplus:list_operation}</th>
+			</tr>
+			<!--{if !$classs}-->
+			<tr>
+				<td></td>
+				<td colspan="6">
+					<span><strong>{lang xplus:form_fieldlist_null}</strong></span>
+				</td>
+			</tr>    
+			<!--{else}-->
+		   <!--{loop $formfield $field}-->
+			<tr>
+				<td><input class="checkbox" type="checkbox" name="delete[]" value="{$field[fieldid]}"></td>
+				<td><input type="text" class="px" size="2" name="displayorder[{$field[fieldid]}]]" value="{$field[displayorder]}"></td>         
+				<td><input type="text" class="px" size="35" name="title[{$field[fieldid]}]" value="{$field[title]}"></td>
+				<td>{$field[identifier]}</td>
+				<td>{$field[type]}</td>
+				<td>
+					<a href="plugin.php?id=xplus:admincr&mod=form&action=fielddetail&classid={$classid}&fieldid={$field[fieldid]}">{lang xplus:form_fieldlist_tail}</a>
+				</td>
+			</tr>
+			<!--{/loop}-->
+			<!--{/if}-->
+			<tr><td class="nb"></td><td colspan="5" class="nb"><div id="classlist"><a href="plugin.php?id=xplus:admincr&mod=form&action=fieldlist&type=admin&classid={$classid}###" onclick="addrow(this, 0)" class="addtr">[+]&nbsp;{lang xplus:form_fieldlist_add}</a></div></td></tr>
+			<tr>
+				<td colspan="8" class="nb">
+					<label for="chkall" onclick="checkall(this.form, 'delete')"><input type="checkbox" name="chkall" id="chkall" class="pc" />{lang delete}</label>&nbsp;
+					<button type="submit" name="fieldlistsubmit" value="true" class="pn vm"><em>{lang xplus:submit}</em></button>
+					<!--{if $multipage}--><div class="pg cl">$multipage</div><!--{/if}-->
+				</td>
+			</tr>
+			<script type="text/JavaScript">_attachEvent(document.documentElement, 'keydown', function (e) { entersubmit(e, 'fieldlistsubmit'); });</script>
+		</table>
+	</form>              
+</div>

@@ -1,0 +1,92 @@
+<!--{template common/header}-->
+<style type="text/css">
+.activediv{width:600px; margin:auto}
+.activediv p{margin-top:10px; margin-bottom:10px}
+.acitve_menu{margin-left:10px; width:200px;}
+.acitve_menu li{float:left; background-color:#f5f5f5;   height:28px; line-height:28px;  margin-left:3px; width:80px; text-align:center; cursor:pointer}
+.acitve_menu li.selected{background:#FFFFFF; font-weight:bold; border:1px solid #ccc; border-bottom:none}
+</style>
+
+<script type="text/javascript" src="static/js/mbindphone.js?t=1"></script>
+<script type="text/javascript">
+
+
+function goEmail(){
+	var url = document.getElementById('email_1').value;
+	url = url.split('@');
+	url = "http://mail."+url[1];;
+	window.open(url);
+}
+
+var referer = "$referer";
+
+function gotoReferer(){
+    alert('用户已激活');
+     location=referer;    
+}
+
+</script>
+
+
+
+<div id="ct" class="ptm wp cl">
+	<div class="mn">
+    	<header class="header">
+    <div class="nav">
+        <a href="forum.php?mobile=2&view=quote&mod=guide"  class="z"><img src="static/image/mobile/images/icon_back.png" /></a>
+<span>账号激活</span>
+    </div>
+</header>
+		<div class="bm" id="main_message">
+	          
+<style>
+	.acitve_menu li.selected { background-color:#CC0000;}
+	#TelDiv{ margin-left:5px;}
+	#ckmessage{ margin:5px 0px 15px 0; color:#999; margin-left:5px;}
+	.rfm{ margin-bottom:5px; margin-top:10px;}
+	.px{ border:1px solid #ccc; margin-right:3px;}
+	.pn{ padding:2px 10px;}
+</style>
+    
+           
+			<!--form start-->
+            
+
+<div id="TelDiv" >
+			<div class="rfm">
+<table>
+<tr>
+<th><label for="mobile"></label></th>
+<td><input type="text" id="mobile" placeholder="手机号" name="" class="px" tabindex="1" autocomplete="off" size="15" maxlength="15" value="{$tel}" required /></td>
+<td class="tipcol"><button class="pn pnc" id="registerformsubmit" type="submit" name="regsubmit" value="true" tabindex="1" onclick="return sendCode()"><strong>获取激活码</strong></button>
+
+</td>
+</tr>
+</table>
+
+</div>
+<span id="ckmessage"></span>
+<div class="rfm">
+<table>
+<tr>
+<th><label for="vcode_1"></label></th>
+<td><input type="password" placeholder="激活码" id="vcode_1" name="" size="15" tabindex="1" class="px" required /></td>
+<td class="tipcol"><button class="pn pnc" id="registerformsubmit" type="submit" name="regsubmit" value="true" tabindex="1" onclick="bindTel()"><strong>激活账号</strong></button>
+
+</td>
+</tr>
+</table>
+
+</div>
+<span id="bindmessage"></span>
+</div>
+
+
+
+			
+			<!--form end-->
+		</div>
+	</div>
+</div>
+
+<!--{template common/footer}-->

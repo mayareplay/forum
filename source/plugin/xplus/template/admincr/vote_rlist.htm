@@ -1,0 +1,23 @@
+<div class="bm bw0"> 
+    <table class="dt lt">
+        <tbody>
+        <tr>
+            <th width="10">&nbsp;</th>
+            <th width="30%">{lang xplus:vote_choice_title}</th>
+			<th width="30%">{lang xplus:vote_choice_count}</th>
+			<th>{lang xplus:list_operation}</th>
+        </tr>
+        <!--{loop $choices $choice}-->  
+        <tr>
+            <td></td>
+            <td>{$choice[caption]}</td>
+            <!--{eval $percent = round(($choice[votenum] / $tatolcount) * 100, 2);}-->
+            <td>$choice[votenum]&nbsp;({$percent}%)</td>
+            <td>
+                <a href="plugin.php?id=xplus:admincr&mod=vote&action=choicedetail&choiceid=$choice[choiceid]&voteid=$voteid">{lang xplus:edit}</a>
+            </td>
+        </tr>
+        <!--{/loop}-->
+        </tbody>
+    </table>
+</div>

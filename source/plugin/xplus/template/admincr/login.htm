@@ -1,0 +1,48 @@
+<!--{template common/header}-->
+
+<style type="text/css">
+.parentcat {}
+.cat { margin-left: 20px; }
+.lastchildcat, .childcat { margin-left: 40px; }
+.exfm { background: none repeat scroll 0 0 #E5EDF2; border: 1px dashed #C2D5E3; margin: 10px 0; padding: 10px 14px;}
+.exfm table { width: 100%; }
+.exfm table th, .exfm table td { padding: 4px 2px; }
+</style>
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em> 
+		<a href="portal.php">{lang xplus:admincr}</a>
+	</div>
+</div>
+  
+<div id="ct" class="ct2_a wp cl">
+	<div class="mn">
+		<div class="bm bw0 mdcp">
+			<h1 class="mt">{lang panel_login}</h1>
+			<div class="mbw">{lang xplus:panel_login}</div>
+			<form method="post" autocomplete="off" action="plugin.php?id=xplus:admincr" class="exfm">
+				<input type="hidden" name="formhash" value="{FORMHASH}">
+				<input type="hidden" name="submit" value="yes">
+				<input type="hidden" name="xplus_login_panel" value="yes">
+				<table cellspacing="0" cellpadding="5">
+					<tr>
+						<th width="60">{lang panel_login_username}:</th><td>{$_G[member][username]}</td>
+					</tr>
+					<tr>
+						<th>{lang panel_login_password}:</th><td><input id="xplus_cppwd" type="password" name="xplus_cppwd" class="px" /></td>
+					</tr>
+					<tr>
+						<th></th><td><button type="submit" class="pn" name="submit" id="submit" value="true"><strong>{lang submit}</strong></button></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<script type="text/javascript">
+			$("xplus_cppwd").focus();
+		</script>
+	</div>
+	<div class="appl">
+		<!--{subtemplate xplus:admincr/nav}-->
+	</div>
+</div>
+<!--{template common/footer}-->

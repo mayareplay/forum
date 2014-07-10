@@ -1,0 +1,198 @@
+<!--{if $_G['setting']['mobile']['mobilehotthread'] && $_GET['forumlist'] != 1}-->
+	<!--{eval dheader('Location:forum.php?mod=guide&view=hot');exit;}-->
+<!--{/if}-->
+<!--{template common/header}-->
+
+<script type="text/javascript">
+	function getvisitclienthref() {
+		var visitclienthref = '';
+		if(ios) {
+			visitclienthref = 'https://itunes.apple.com/cn/app/zhang-shang-lun-tan/id489399408?mt=8';
+		} else if(andriod) {
+			visitclienthref = 'http://www.discuz.net/mobile.php?platform=android';
+		}
+		return visitclienthref;
+	}
+</script>
+<style>
+.sub_forum li{ float:left; font-size:14px; height:30px; width:40%; background-color:#fff; padding:0 5px; margin:8px 0 9px 12px; line-height:30px; border:1px solid #ddd;-moz-box-shadow: 1px 4px 2px rgba(187, 187, 187, 0.2);
+-webkit-box-shadow: 1px 4px 2px rgba(187, 187, 187, 0.2);
+box-shadow: 1px 4px 2px rgba(187, 187, 187, 0.2); }
+.sub_forum li .num{ color:#317ECB; font-size:10px; background:none;}
+.bm_h{ font-size:16px; color:#317ecb; text-align: center; width:100%; height:30px; background-color:#fff; line-height:30px;}
+.bm_h h2 a{ color:#317ECB; line-height:30px; font-size:16px; margin:0 10px 0 10px; background:#fff;}
+
+.sub_forum li a{ padding:0 5px;}
+.o img{ height:30px;}
+.bm_h h2{ height:30px;}
+.footer{clear: both;}
+
+.bm_c {padding: 0px;}
+	.sub_forum li .num {padding: 0 5px;}
+
+</style>
+
+<!--{if $_GET['visitclient']}-->
+
+<header class="header">
+    <div class="nav">
+		<span>{lang warmtip}</span>
+    </div>
+</header>
+<div class="cl">
+	<div class="clew_con">
+		<h2 class="tit">{lang zsltmobileclient}</h2>
+		<p>{lang visitbbsanytime}<input class="redirect button" id="visitclientid" type="button" value="{lang clicktodownload}" href="" /></p>
+		<h2 class="tit">{lang iphoneandriodmobile}</h2>
+		<p>{lang visitwapmobile}<input class="redirect button" type="button" value="{lang clicktovisitwapmobile}" href="$_GET[visitclient]" /></p>
+	</div>
+</div>
+<script type="text/javascript">
+	var visitclienthref = getvisitclienthref();
+	if(visitclienthref) {
+		$('#visitclientid').attr('href', visitclienthref);
+	} else {
+		window.location.href = '$_GET[visitclient]';
+	}
+</script>
+
+<!--{else}-->
+
+<!-- header start -->
+<!--{if $showvisitclient}-->
+
+<div class="visitclienttip vm" style="display:block;">
+	<a href="javascript:;" id="visitclientid" class="btn_download">{lang downloadnow}</a>	
+	<p>
+		{lang downloadzslttoshareview}
+	</p>
+</div>
+<script type="text/javascript">
+	var visitclienthref = getvisitclienthref();
+	if(visitclienthref) {
+		$('#visitclientid').attr('href', visitclienthref);
+		$('.visitclienttip').css('display', 'block');
+	}
+</script>
+
+<!--{/if}-->
+
+
+<script>
+
+
+
+
+
+$(function(){
+    setCwidth();
+    window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", setCwidth, false);
+})
+function setCwidth(){
+    var clientWidth = $(document).width();
+    var w = clientWidth*(1/3);
+    if(w>320){
+        w=320;
+    }
+    $('.timg').width(w) ;
+    var litop = clientWidth*(3/5);
+    $('.limi_wid').width(litop) ;
+}
+
+</script>
+
+<script type="text/javascript">
+$(function () { 
+var ie6 = document.all;
+var dv = $('#fixedMenu_keleyi_com'), st; 
+dv.attr('otop', dv.offset().top); //存储原来的距离顶部的距离 
+$(window).scroll(function () { 
+st = Math.max(document.body.scrollTop || document.documentElement.scrollTop); 
+if (st > parseInt(dv.attr('otop'))) { 
+if (ie6) {//IE6不支持fixed属性，所以只能靠设置position为absolute和top实现此效果 
+dv.css({ position: 'absolute', top: st }); 
+} 
+else if (dv.css('position') != 'fixed') dv.css({ 'position': 'fixed', top: 0 }); 
+} else if (dv.css('position') != 'static') dv.css({ 'position': 'static' }); 
+});
+}); 
+</script> 
+
+
+<header class="header">
+	<div class="hdc cl">
+		<!--{if $_G['setting']['domain']['app']['mobile']}-->
+			{eval $nav = 'http://'.$_G['setting']['domain']['app']['mobile'];}
+		<!--{else}-->
+			{eval $nav = "forum.php?mobile=2&view=quote&mod=guide";}
+		<!--{/if}-->
+		<h2>
+        <a href="#menu" data-ajax="false" class="ui_link">
+<img width="30" height="30" src="{STATICURL}/js/mmenu/vk_menu.png" />
+<!--{if $_G[member][newpm] ||$_G[member][newprompt]}--><img src="http://home.wangjing.cn/static/image/common/notice.gif" class="dengpao" /><!--{/if}-->
+        </a>
+        </h2>
+		<ul class="user_fun">
+	        <li class="fatie"><a href="forum.php?mod=post&action=newthread&fid=88&mobile=2" class=" icon_fatie">发帖</a></li>
+			<li class="on"><a href="forum.php?forumlist=1" class="icon_threadlist">{lang forum_list}</a></li>
+
+           
+		</ul>
+	</div>
+    <div class="aa"><a title="$_G[setting][bbname]" href="$nav"><img src="{STATICURL}image/mobile/images/logo.png" /></a></div>
+</header>
+
+<!-- header end -->
+
+<!--{template common/navheader}-->
+
+
+
+
+
+
+<!--{hook/index_top_mobile}-->
+<!-- main forumlist start -->
+<div class="wp wm" id="wp" style="margin-top: 5px;">
+	<!--{loop $catlist $key $cat}-->
+	<div class="bm bmw fl">
+		<div class="subforumshow bm_h cl" href="#sub_forum_$cat[fid]">
+			<span class="o"><img src="{STATICURL}image/mobile/images/collapsed_<!--{if !$_G[setting][mobile][mobileforumview]}-->yes<!--{else}-->no<!--{/if}-->.png"></span>
+		<h2><a href="javascript:;">$cat[name]</a></h2>
+		</div>
+		<div id="sub_forum_$cat[fid]" class="sub_forum bm_c">
+			<ul>
+				<!--{loop $cat[forums] $forumid}-->
+				<!--{eval $forum=$forumlist[$forumid];}-->
+				<li><a href="forum.php?mod=forumdisplay&fid={$forum['fid']}"><!--{if $forum[posts] > 0}--><span class="num">$forum[posts]</span><!--{/if}-->{$forum[name]}</a></li>
+				<!--{/loop}-->
+			</ul>
+		</div>
+	</div>
+	<!--{/loop}-->
+</div>
+<!-- main forumlist end -->
+<!--{hook/index_middle_mobile}-->
+<script type="text/javascript">
+	(function() {
+		<!--{if !$_G[setting][mobile][mobileforumview]}-->
+			$('.sub_forum').css('display', 'block');
+		<!--{else}-->
+			$('.sub_forum').css('display', 'none');
+		<!--{/if}-->
+		$('.subforumshow').on('click', function() {
+			var obj = $(this);
+			var subobj = $(obj.attr('href'));
+			if(subobj.css('display') == 'none') {
+				subobj.css('display', 'block');
+				obj.find('img').attr('src', '{STATICURL}image/mobile/images/collapsed_yes.png');
+			} else {
+				subobj.css('display', 'none');
+				obj.find('img').attr('src', '{STATICURL}image/mobile/images/collapsed_no.png');
+			}
+		});
+	 })();
+</script>
+
+<!--{/if}-->
+<!--{template common/footer}-->

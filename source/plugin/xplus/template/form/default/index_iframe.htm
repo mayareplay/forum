@@ -1,0 +1,250 @@
+<!--{template xplus:common/header}-->
+<style type="text/css">
+body { background: white;}
+</style>
+<script type="text/javascript">
+	var iniframe = {if $iniframe} true {else} false {/if};
+</script>
+
+<div id="iniframe" style="width: {$width}px; height: {$height}px;">
+    <!--{if $formvalue}-->
+		<form id="form" action="plugin.php?id=xplus:form&inajax=1&action=formsubmit">
+			<table cellspacing="0" cellpadding="0" class="tfm">
+			<!--{loop $_G['form_fieldlist'] $fieldid $field}-->
+				<tr>
+					<th><!--{if $field['required']}--><span class="rq">*</span><!--{/if}--><span id="fieldtitle_{$field['identifier']}">$field['title']</span></th>
+					<td>
+						<!--{if in_array($field['type'], array('number', 'qq', 'mobile', 'telephone', 'text', 'custom', 'email', 'calendar', 'image', 'url', 'range', 'upload', 'range'))}-->
+							<!--{if $field['type'] == 'calendar'}-->
+								<link rel="stylesheet" type="text/css" href="template/common/calendar.css" />
+								<script type="text/javascript" src="static/js/calendar.js"></script>
+								<input type="text" name="fieldvalue[{$field['identifier']}]" id="fieldvalue_{$field['identifier']}" tabindex="1" {if $field['inputsize']}size="$field[inputsize]"{else} style="width:282px"{/if} onBlur="checkfield('$field[identifier]', '$field[required]', '$field[type]')" value="{if $viewresult}$formvalue[$field[identifier]]{else}$field['defaultvalue']{/if}" $fielddisabled onclick="showcalendar(event, this, false)" class="px"/>
+							<!--{elseif $field['type'] == 'image'}-->
+								<!--{if $viewresult}-->
+									<!--{eval $imgsrc = $formvalue[$field[identifier]] ? $_G['setting']['attachurl'].'common/'.$formvalue[$field[identifier]] : $_G['siteurl'].'static/image/common/default.jpg';}-->
+									<img src="$imgsrc" />
+								<!--{else}-->
+									<input type="file" name="fieldvalue_{$field['identifier']}" id="fieldvalue_{$field['identifier']}" tabindex="1" {if $field['inputsize']}size="$field[inputsize]"{else} style="width:282px"{/if} class="filedata" />
+								<!--{/if}-->
+							<!--{else}-->
+								<input type="text" name="fieldvalue[{$field[identifier]}]" id="fieldvalue_$field[identifier]" class="px" tabindex="1" {if $field['inputsize']}size="$field[inputsize]"{else} style="width:282px"{/if} onBlur="checkfield('$field[identifier]', '$field[required]', '$field[type]'{if $field[maxnum]}, '$field[maxnum]'{else}, '0'{/if}{if $field[minnum]}, '$field[minnum]'{else}, '0'{/if}{if $field[maxlength]}, '$field[maxlength]'{/if})" value="{if $viewresult}$formvalue[$field[identifier]]{else}$field['defaultvalue']{/if}" $fielddisabled />
+							<!--{/if}-->
+						<!--{elseif in_array($field['type'], array('radio', 'checkbox', 'select'))}-->
+							<!--{if $field[type] == 'select'}-->
+								<span class="ftid">
+									<select name="fieldvalue[{$field[identifier]}]" id="fieldvalue_$field[identifier]" $fielddisabled tabindex="1" class="ps">
+									<!--{loop $field['choices'] $id $value}-->
+										<option value="$id" {if $id == $formvalue[$field[identifier]]}selected="selected"{/if}>$value</option>
+									<!--{/loop}-->
+									</select>
+								</span>
+							<!--{elseif $field['type'] == 'radio'}-->
+								<ul>
+								<!--{eval $radiochecked = $viewresult ? '' : 'checked="checked"';}-->
+								<!--{loop $field['choices'] $id $value}-->
+									<li><label><input type="radio" name="fieldvalue[{$field[identifier]}]" id="fieldvalue_$field[identifier]" class="pr" tabindex="1" onclick="checkfield('$field[identifier]', '$field[required]', '$field[type]')" value="$id" class="pr" {if $id == $formvalue[$field[identifier]]}checked="checked"{/if} $fielddisabled /> $value</label></li>
+								<!--{eval $radiochecked = '';}-->
+								<!--{/loop}-->
+								</ul>
+							<!--{elseif $field['type'] == 'checkbox'}-->
+								<ul>
+								<!--{eval $checkboxselected = explode("\t", $formvalue[$field[identifier]]);}-->
+								<!--{loop $field['choices'] $id $value}-->
+									<li><label><input type="checkbox" name="fieldvalue[{$field[identifier]}][]" id="fieldvalue_$field[identifier]" class="pc" tabindex="1" onclick="checkfield('$field[identifier]', '$field[required]', '$field[type]')" value="$id" $fielddisabled {if in_array($id, $checkboxselected)}checked="checked"{/if}class="pc"> $value</label></li>
+								<!--{/loop}-->
+								</ul>
+							<!--{/if}-->
+						<!--{elseif in_array($field['type'], array('textarea'))}-->
+							<textarea name="fieldvalue[{$field[identifier]}]" tabindex="1" id="fieldvalue_$field[identifier]" rows="$field[rowsize]" {if $field['colsize']}cols="$field[colsize]"{else} style="width:282px"{/if} onBlur="checkfield('$field[identifier]', '$field[required]', '$field[type]', 0, 0{if $field[maxlength]}, '$field[maxlength]'{/if})" $fielddisabled class="pt">{$field['defaultvalue']}</textarea>
+						<!--{/if}-->
+						 $field[unit]
+						<span id="checkresult_{$field[identifier]}"></span>
+						<!--{if $field['maxnum'] || $field['minnum'] || $field['maxlength'] || $field[description] || $field['maxfilesize'] || $field['maxwidth'] || $field['maxheight'] || $field['minwidth'] || $field['minheight']}-->
+							<div class="d">
+							<!--{if $field['maxnum']}-->
+								{lang xplus:maxnum} $field[maxnum]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['minnum']}-->
+								{lang xplus:minnum} $field[minnum]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['maxlength']}-->
+								{lang xplus:maxlength} $field[maxlength]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['maxfilesize']}-->
+								{lang xplus:maxfilesize} $field[maxfilesize]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['maxwidth']}-->
+								{lang xplus:maxwidth} $field[maxwidth]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['maxheight']}-->
+								{lang xplus:maxheight} $field[maxheight]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['minwidth']}-->
+								{lang xplus:minwidth} $field[minwidth]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['minheight']}-->
+								{lang xplus:minheight} $field[minheight]&nbsp;
+							<!--{/if}-->
+							<!--{if $field[description]}-->
+								$field[description]
+							<!--{/if}-->
+							</div>
+						<!--{/if}-->
+					</td>
+				</tr>
+			<!--{/loop}-->
+			<!--{if !$viewresult}-->
+					<!--{eval $sectpl = '<tr><th><sec>:</th><td><sec></td></tr><tr><td></td><td class="d"><sec></td></tr>';}-->
+					<!--{template common/seccheck}-->
+				<tr>
+					<td></td>
+					<td>
+						<button type="submit" id="formsubmit" class="pn pnc" value="true" name="formsubmit"><span>提交</span></button>
+					</td>
+				</tr>
+			<!--{/if}-->
+			</table>
+			<script type="text/javascript">
+				function validateextra() {
+					CHECKALLFIELD = true;
+					<!--{loop $_G['form_fieldlist'] $fieldid $field}-->
+						if(!checkfield('$field[identifier]', '$field[required]', '$field[type]')) {
+							CHECKALLFIELD = false;
+							return false;
+						}
+					<!--{/loop}-->
+					return true;
+				}
+				<!--{loop $_G['form_fieldlist'] $fieldid $field}-->
+					if('$field[type]' == 'select') {
+						simulateSelect('fieldvalue_$field[identifier]', '$field[inputsize]');
+					}
+				<!--{/loop}-->
+			</script>
+		</form>
+		<!--{else}-->
+		<form id="form" enctype="multipart/form-data" onsubmit="return valida_ajaxpost(this);" action="plugin.php?id=xplus:form&inajax=1&action=formsubmit" method="post">
+			<input type="hidden" name="handlekey" value="formresult" />
+			<input type="hidden" name="fid" value="$formid" />
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+            <input type="hidden" name="iniframe" value="{$iniframe}" />
+            <input type="hidden" name="width" value="{$width}" />
+            <input type="hidden" name="height" value="{$height}" />
+			<table cellspacing="0" cellpadding="0" class="tfm">
+			<!--{loop $_G['form_fieldlist'] $fieldid $field}-->
+				<tr>
+					<th><!--{if $field['required']}--><span class="rq">*</span><!--{/if}--><span id="fieldtitle_{$field['identifier']}">$field['title']</span></th>
+					<td>
+						<!--{if in_array($field['type'], array('number', 'qq', 'mobile', 'telephone', 'text', 'custom', 'email', 'calendar', 'image', 'url', 'range', 'upload', 'range'))}-->
+							<!--{if $field['type'] == 'calendar'}-->
+								<link rel="stylesheet" type="text/css" href="template/common/calendar.css" />
+								<script type="text/javascript" src="static/js/calendar.js"></script>
+								<input type="text" name="fieldvalue[{$field['identifier']}]" id="fieldvalue_{$field['identifier']}" tabindex="1" {if $field['inputsize']}size="$field[inputsize]"{else} style="width:282px"{/if} onBlur="checkfield('$field[identifier]', '$field[required]', '$field[type]')" value="{if $viewresult}$formvalue[$field[identifier]]{else}$field['defaultvalue']{/if}" $fielddisabled onclick="showcalendar(event, this, false)" class="px"/>
+							<!--{elseif $field['type'] == 'image'}-->
+								<!--{if $viewresult}-->
+									<!--{eval $imgsrc = $formvalue[$field[identifier]] ? $_G['setting']['attachurl'].'form/'.$formvalue[$field[identifier]] : $_G['siteurl'].'static/image/common/default.jpg';}-->
+									<img src="$imgsrc" />
+								<!--{else}-->
+									<input type="file" name="fieldvalue_{$field['identifier']}" id="fieldvalue_{$field['identifier']}" tabindex="1" {if $field['inputsize']}size="$field[inputsize]"{else} style="width:282px"{/if} class="filedata" />
+								<!--{/if}-->
+							<!--{else}-->
+								<input type="text" name="fieldvalue[{$field[identifier]}]" id="fieldvalue_$field[identifier]" class="px" tabindex="1" {if $field['inputsize']}size="$field[inputsize]"{else} style="width:282px"{/if} onBlur="checkfield('$field[identifier]', '$field[required]', '$field[type]'{if $field[maxnum]}, '$field[maxnum]'{else}, '0'{/if}{if $field[minnum]}, '$field[minnum]'{else}, '0'{/if}{if $field[maxlength]}, '$field[maxlength]'{/if})" value="{if $viewresult}$formvalue[$field[identifier]]{else}$field['defaultvalue']{/if}" $fielddisabled />
+							<!--{/if}-->
+						<!--{elseif in_array($field['type'], array('radio', 'checkbox', 'select'))}-->
+							<!--{if $field[type] == 'select'}-->
+								<span class="ftid">
+									<select name="fieldvalue[{$field[identifier]}]" id="fieldvalue_$field[identifier]" $fielddisabled tabindex="1" class="ps">
+									<!--{loop $field['choices'] $id $value}-->
+										<option value="$id" {if $id == $formvalue[$field[identifier]]}selected="selected"{/if}>$value</option>
+									<!--{/loop}-->
+									</select>
+								</span>
+							<!--{elseif $field['type'] == 'radio'}-->
+								<ul>
+								<!--{eval $radiochecked = $viewresult ? '' : 'checked="checked"';}-->
+								<!--{loop $field['choices'] $id $value}-->
+									<li><label><input type="radio" name="fieldvalue[{$field[identifier]}]" id="fieldvalue_$field[identifier]" class="pr" tabindex="1" onclick="checkfield('$field[identifier]', '$field[required]', '$field[type]')" value="$id" class="pr" {if $id == $formvalue[$field[identifier]]}checked="checked"{/if} $fielddisabled /> $value</label></li>
+								<!--{eval $radiochecked = '';}-->
+								<!--{/loop}-->
+								</ul>
+							<!--{elseif $field['type'] == 'checkbox'}-->
+								<ul>
+								<!--{eval $checkboxselected = explode("\t", $formvalue[$field[identifier]]);}-->
+								<!--{loop $field['choices'] $id $value}-->
+									<li><label><input type="checkbox" name="fieldvalue[{$field[identifier]}][]" id="fieldvalue_$field[identifier]" class="pc" tabindex="1" onclick="checkfield('$field[identifier]', '$field[required]', '$field[type]')" value="$id" $fielddisabled {if in_array($id, $checkboxselected)}checked="checked"{/if}class="pc"> $value</label></li>
+								<!--{/loop}-->
+								</ul>
+							<!--{/if}-->
+						<!--{elseif in_array($field['type'], array('textarea'))}-->
+							<textarea name="fieldvalue[{$field[identifier]}]" tabindex="1" id="fieldvalue_$field[identifier]" rows="$field[rowsize]" {if $field['colsize']}cols="$field[colsize]"{else} style="width:282px"{/if} onBlur="checkfield('$field[identifier]', '$field[required]', '$field[type]', 0, 0{if $field[maxlength]}, '$field[maxlength]'{/if})" $fielddisabled class="pt">{$field['defaultvalue']}</textarea>
+						<!--{/if}-->
+						 $field[unit]
+						<span id="checkresult_{$field[identifier]}"></span>
+						<!--{if $field['maxnum'] || $field['minnum'] || $field['maxlength'] || $field[description] || $field['maxfilesize'] || $field['maxwidth'] || $field['maxheight'] || $field['minwidth'] || $field['minheight']}-->
+							<div class="d">
+							<!--{if $field['maxnum']}-->
+								{lang xplus:maxnum} $field[maxnum]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['minnum']}-->
+								{lang xplus:minnum} $field[minnum]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['maxlength']}-->
+								{lang xplus:maxlength} $field[maxlength]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['maxfilesize']}-->
+								{lang xplus:maxfilesize} $field[maxfilesize]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['maxwidth']}-->
+								{lang xplus:maxwidth} $field[maxwidth]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['maxheight']}-->
+								{lang xplus:maxheight} $field[maxheight]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['minwidth']}-->
+								{lang xplus:minwidth} $field[minwidth]&nbsp;
+							<!--{/if}-->
+							<!--{if $field['minheight']}-->
+								{lang xplus:minheight} $field[minheight]&nbsp;
+							<!--{/if}-->
+							<!--{if $field[description]}-->
+								$field[description]
+							<!--{/if}-->
+							</div>
+						<!--{/if}-->
+					</td>
+				</tr>
+			<!--{/loop}-->
+			<!--{if !$viewresult}-->
+					<!--{eval $sectpl = '<tr><th><sec>:</th><td><sec></td></tr><tr><td></td><td class="d"><sec></td></tr>';}-->
+					<!--{template common/seccheck}-->
+				<tr>
+					<td></td>
+					<td>
+						<button type="submit" id="formsubmit" class="pn pnc" value="true" name="formsubmit"><span>提交</span></button>
+					</td>
+				</tr>
+			<!--{/if}-->
+			</table>
+			<script type="text/javascript">
+				function validateextra() {
+					CHECKALLFIELD = true;
+					<!--{loop $_G['form_fieldlist'] $fieldid $field}-->
+						if(!checkfield('$field[identifier]', '$field[required]', '$field[type]')) {
+							CHECKALLFIELD = false;
+							return false;
+						}
+					<!--{/loop}-->
+					return true;
+				}
+				<!--{loop $_G['form_fieldlist'] $fieldid $field}-->
+					if('$field[type]' == 'select') {
+						simulateSelect('fieldvalue_$field[identifier]', '$field[inputsize]');
+					}
+				<!--{/loop}-->
+			</script>
+		</form>
+		<!--{/if}-->
+    <div id="return_formresult" sytle="display:none;">&nbsp;</div>
+</div>
+
+<!--{template xplus:common/footer}-->

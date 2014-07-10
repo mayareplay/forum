@@ -1,0 +1,64 @@
+				<!--{if $datalist}-->
+					<ul class="hotlist">
+		                  <!--{loop $datalist $thread}-->
+                          <li>
+     
+     <!--{if $thread[thumb]}-->
+        <a href="{$thread[url]}">
+        <div class="li_top limi_wid">
+        $thread[subject]
+        <span class="by zhaiyao">
+        $thread[desc]
+        </span>
+        <span class="by ming">$thread[author]</span>
+        </div>
+        <div class="li_bottom">
+        <span class="li_img">
+        <img class="timg" src="$thread[thumb]" />
+        </span>
+        <div class="clear"></div>
+        
+        <div class="bot_li">
+ <div class="bott_right">
+     
+             <span class="laizi">来自:$thread[forum] <span class="cha"></span>$thread[views]</span>
+
+          </div>
+        </div>
+        
+
+        </div>
+        <div class="clear"></div>
+        </a>
+    <!--{else}-->
+                          
+        <a href="{$thread[url]}">
+        <div class="li_top">
+        $thread[subject]
+        <span class="by zhaiyao ">
+        $thread[desc]
+        </span>
+        <span class="by ming">$thread[author]</span>
+        </div>
+        <div class="li_bottom">
+        <div class="clear"></div>
+        
+        <div class="bot_li">
+        <div class="bott_right">
+       	     <span class="laizi">来自:$thread[forum] <span class="cha"></span>$thread[views] </span>
+          </div>
+        </div>
+        
+        </div>
+        
+        
+        <div class="clear"></div>
+        </a>
+    
+     <!--{/if}-->
+     </li>
+                          <!--{/loop}-->
+					</ul>
+				<!--{else}-->
+					<p>{lang guide_nothreads}</p>
+				<!--{/if}-->

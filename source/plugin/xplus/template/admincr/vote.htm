@@ -1,0 +1,76 @@
+<!--{template common/header}-->
+<link rel="stylesheet" type="text/css" href="{$_G['showmessage']['cssurl']}admincr.css?{VERHASH}" />
+<script type="text/javascript" src="{$_G[setting][jspath]}calendar.js?{VERHASH}"></script>
+<script type="text/javascript" src="{$_G['showmessage']['jspath']}xplus_admincr.js?{VERHASH}"></script>
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em> 
+		<a href="plugin.php?id=xplus:admincr">{lang xplus:admincr}</a> <em>&rsaquo;</em> 
+        <a href="plugin.php?id=xplus:admincr&mod=vote">{lang xplus:mod_vote}</a> <em>&rsaquo;</em> 
+        <!--{if $action == 'list'}--> 
+        <a href="plugin.php?id=xplus:admincr&mod=vote">{lang xplus:vote_list}</a>
+        <!--{elseif $action == 'guide'}-->
+        <a href="plugin.php?id=xplus:admincr&mod=vote&action={$action}&voteid={$voteid}">{lang xplus:vote_guide}</a>   
+        <!--{elseif $action == 'setting'}-->
+        <a href="plugin.php?id=xplus:admincr&mod=vote&action={$action}&voteid={$voteid}">{lang xplus:vote_list_edit}</a>    
+        <!--{elseif $action == 'choiceed'}-->
+        <a href="plugin.php?id=xplus:admincr&mod=vote&action={$action}&voteid={$voteid}">{lang xplus:vote_list_choice}</a>
+        
+        <!--{/if}-->
+        <!--{if $title}--> 
+        <em>&rsaquo;</em>{$title} 
+        <!--{/if}-->
+	</div>
+</div>
+
+<div id="ct" class="ct2_a wp cl">
+	<div class="mn">
+        <!--{if $action == 'list'}-->
+            <ul class="tb cl">
+                <li class="a"><a href="plugin.php?id=xplus:admincr&mod=vote&action=list">{lang xplus:vote_list}</a></li>                              
+                <li class="o y"><a href="plugin.php?id=xplus:admincr&mod=vote&action=guide" target="_blank">{lang xplus:vote_list_add}</a></li> 
+            </ul> 
+             <!--{template xplus:admincr/vote_list}-->     
+        <!--{elseif in_array($action, array('setting', 'choiceed', 'guide'))}-->   
+            <!--{if $action == 'guide' || $inguide == 1}-->
+            <div class="bm bw0">
+                <ul class="tb cl">
+                    <li{if $action == 'guide'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=vote&action=guide">{lang xplus:vote_guide_step1}</a></li>
+                    <li{if $action == 'setting'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=vote&action=setting&inguide=1{if $voteid}&voteid=$voteid{/if}">{lang xplus:vote_guide_step2}</a></li>	
+                    <li{if $action == 'choiceed'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=vote&action=choiceed&inguide=1{if $voteid}&voteid=$voteid{/if}">{lang xplus:vote_guide_step3}</a></li> 
+                <!--{if $action == 'setting'}-->
+                    <li class="o y"><a href="plugin.php?id=xplus:admincr&mod=vote&action=choiceed&inguide=1{if $voteid}&voteid=$voteid{/if}">{lang xplus:guide_nextstep}</a></li>
+                <!--{elseif $action == 'choiceed'}-->
+                    <li class="o y"><a href="plugin.php?id=xplus:admincr&mod=vote&action=list">{lang xplus:guide_finish}</a></li>
+                <!--{/if}-->
+                </ul>
+            </div>
+            <!--{else}--> 
+            <div class="bm bw0">
+                <ul class="tb cl">
+                    <li{if $action == 'setting'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=vote&action=setting&voteid=$voteid">{lang xplus:vote_list_edit}</a></li>
+                    <li{if $action == 'choiceed'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=vote&action=choiceed&voteid=$voteid">{lang xplus:vote_list_choice}</a></li>
+                    <!--<li{if $action == 'rlist'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=vote&action=rlist&voteid=$voteid">{lang xplus:vote_list_result}</a></li>-->
+                </ul>
+            </div> 
+            <!--{/if}-->
+            <!--{if $action == 'setting'}--> 
+                <!--{template xplus:admincr/vote_setting}-->  
+            <!--{elseif $action == 'guide'}--> 
+                <!--{template xplus:admincr/vote_guide}-->  
+            <!--{elseif $action == 'choiceed'}--> 
+                <!--{template xplus:admincr/vote_choiceed}-->  
+            <!--{/if}-->      
+        <!--{/if}-->
+	</div>
+	<div class="appl">
+		<!--{subtemplate xplus:admincr/nav}-->
+	</div>
+</div>
+<script type="text/javascript">
+function display(id) {
+    $(id).style.display = $(id).style.display == '' ? 'none' : '';
+} 
+</script>
+
+<!--{template common/footer}-->

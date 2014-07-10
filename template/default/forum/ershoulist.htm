@@ -1,0 +1,40 @@
+<style type="text/css">
+.ershoua{
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    
+}
+.ershoua h3{
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background: #f2f2f2;
+}
+.ershoua li{
+    white-space: nowrap;
+    overflow: hidden;
+    height: 16px;
+    float:left;
+    width:225px;
+    font-size: 12px;
+    margin-top: 5px;
+    padding-left: 10px;
+    margin-left: 8px;
+    background-image: url(static/image/common/slisticon.gif);
+    background-repeat: no-repeat;
+    background-position: 0 3px;
+}
+.ershoua li a{text-decoration: underline; color:#436682}
+</style>
+
+
+<!--{if $bottom_thread_list}-->
+<div class="ershoua">
+    <h3><a href="forum-253-1.html">二手市场</a></h3>
+    <ul>
+    {$bottom_thread_list}
+    </ul>
+    <div style="clear: both;"></div>
+</div>
+<!--{/if}-->

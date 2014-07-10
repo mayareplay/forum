@@ -1,0 +1,43 @@
+<!--{block return}-->
+<div class="mtm mbm xld threadlink" id="threadlink">
+	<h1><!--{if in_array($this->member['groupid'], $this->allowgroups)}--><em class="y"><a href="plugin.php?id=threadlink:mod&action=sort&tid={$this->tid}" onclick="showWindow('threadlink', this.href, 'get', 1);doane(e);">{lang threadlink:sort}</a></em><!--{/if}-->{lang threadlink:threadlink_title}</h1>
+<!--{loop $links $link}-->
+	<dl>
+		<dt class="xs2">
+			<!--{if in_array($this->member['groupid'], $this->allowgroups)}-->
+				<span class="y xs1 xw0 xi2">
+					<a href="plugin.php?id=threadlink:mod&action=edit&lid={$link[lid]}" onclick="showWindow('threadlink', this.href, 'get', 1);doane(e);">{lang threadlink:edit}</a><span class="pipe">|</span><a href="plugin.php?id=threadlink:mod&action=delete&lid={$link[lid]}" onclick="showWindow('threadlink', this.href, 'get', 1);doane(e);">{lang threadlink:delete}</a>
+				</span>
+			<!--{/if}-->
+			<span class="xw1">{$link[line]}</span><a href="{$link[url]}" target="_blank">{$link[subject]}</a>
+		</dt>
+		<dd class="cl">
+			<!--{if $link[pic]}-->
+				<div class="threadpic">
+					<div class="picsingle">
+						<a href="{$link[url]}" target="_blank"><img src="{$link[pic][0][url]}" alt="" width="{$base[picwidth]}" height="{$base[picheight]}" /></a>
+						<!--{if in_array($this->member['groupid'], $this->allowgroups)}--><span style="left:{$left}px;top:{$top}px;"><a href="plugin.php?id=threadlink:mod&action=editimage&lid={$link[lid]}&md5={$link['pic'][0][md5]}&aid={$link[pic][0][aid]}" onclick="showWindow('threadlink', this.href, 'get', 1);doane(e);">{lang threadlink:edit}</a></span><!--{/if}-->
+					</div>
+				</div>
+			<!--{/if}-->
+			{$link[message]}
+		</dd>
+	</dl>
+<!--{/loop}-->
+</div>
+<script type="text/javascript" reload="1">
+	var threadlink = $('threadlink');
+	var tlThreads = threadlink.getElementsByTagName('A');
+	var b = 0;
+	for(var i=0;i<tlThreads.length;i++) {
+		if(tlThreads[i].href.indexOf('threadlink') < 0) {
+			if(tlThreads[i].href.indexOf('?') > 0) {
+				tlThreads[i].href += '&from=threadlink';
+			} else {
+				tlThreads[i].href += '?from=threadlink';
+			}
+		}
+
+	}
+</script>
+<!--{/block}-->

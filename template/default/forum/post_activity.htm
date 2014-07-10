@@ -1,0 +1,219 @@
+<div class="exfm cl">
+	<div class="sinf sppoll z">
+		<dl>
+			<dt><span class="rq">*</span>{lang post_event_time}:</dt>
+			<dd>
+				<div id="certainstarttime" {if $activity['starttimeto']}style="display: none"{/if}>
+					<input type="text" name="starttimefrom[0]" id="starttimefrom_0" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$activity[starttimefrom]" tabindex="1" />
+				</div>
+				<div id="uncertainstarttime" {if !$activity['starttimeto']}style="display: none"{/if}>
+					<input type="text" name="starttimefrom[1]" id="starttimefrom_1" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$activity[starttimefrom]" tabindex="1" /><span> ~ </span><input onclick="showcalendar(event, this, true)" type="text" autocomplete="off" id="starttimeto" name="starttimeto" class="px" value="{if $activity['starttimeto']}$activity[starttimeto]{/if}" tabindex="1" />
+				</div>
+				<div class="spmf cl">
+					<label for="activitytime"><input type="checkbox" id="activitytime" name="activitytime" class="pc" onclick="if(this.checked) {$('certainstarttime').style.display='none';$('uncertainstarttime').style.display='';} else {$('certainstarttime').style.display='';$('uncertainstarttime').style.display='none';}" value="1" {if $activity['starttimeto']}checked{/if} tabindex="1" />{lang activity_starttime_endtime}</label>
+				</div>
+			</dd>
+			<dt><span class="rq">*</span><label for="activityplace">{lang activity_space}:</label></dt>
+			<dd>
+				<input type="text" name="activityplace" id="activityplace" class="px oinf" value="$activity[place]" tabindex="1" />
+			</dd>
+			<!--{if $_GET[action] == 'newthread'}-->
+			<dt><label for="activitycity">{lang activity_city}:</label></dt>
+			<dd><input name="activitycity" id="activitycity" class="px" type="text" tabindex="1" /></dd>
+			<!--{/if}-->
+			<dt><span class="rq">*</span><label for="activityclass">{lang activiy_sort}:</label></dt>
+			<dd class="hasd cl">
+				<!--{if $activitytypelist}-->
+					<ul id="activitytypelist" style="display: none">
+					<!--{loop $activitytypelist $type}-->
+						<li>$type</li>
+					<!--{/loop}-->
+					</ul>
+				<!--{/if}-->
+				<span><input type="text" id="activityclass" name="activityclass" class="px" value="$activity[class]" tabindex="1" /></span>
+				<!--{if $activitytypelist}-->
+					<a href="javascript:;" class="dpbtn" onclick="showselect(this, 'activityclass', 'activitytypelist')">^</a>
+				<!--{/if}-->
+			</dd>
+			<dt><label for="activitynumber">{lang activity_need_member}:</label></dt>
+			<dd>
+				<input type="text" name="activitynumber" id="activitynumber" class="px z" style="width:55px;" onkeyup="checkvalue(this.value, 'activitynumbermessage')" value="$activity[number]" tabindex="1" />
+				<span class="ftid">
+					<select name="gender" id="gender" width="38" class="ps">
+						<option value="0" {if !$activity['gender']}selected="selected"{/if}>{lang unlimited}</option>
+						<option value="1" {if $activity['gender'] == 1}selected="selected"{/if}>{lang male}</option>
+						<option value="2" {if $activity['gender'] == 2}selected="selected"{/if}>{lang female}</option>
+					</select>
+				</span>
+				<span id="activitynumbermessage"></span>
+			</dd>
+            
+            
+            <dt><label for="ext_firends">报名限制:</label></dt>
+            <dd>
+            <input type="text" name="ext_firends" id="ext_firends" class="px z" style="width:55px;" onkeyup="checkvalue(this.value, 'ext_firendsmessage')" value="$activity[ext_firends]" tabindex="1" /> 人 (每人最多报名人数限制1-127)
+            <span id="ext_firendsmessage"></span>
+            </dd>
+            
+            <dt><label for="ext_needverifiy">需要审核:</label></dt>
+            <dd>
+            
+            <input type="radio" name="ext_needverifiy"  value="1" {if $activity['ext_needverifiy']}checked="checked"{/if} /> 是 
+            <input type="radio" name="ext_needverifiy" value="0" {if !$activity['ext_needverifiy']}checked="checked"{/if} /> 否
+            
+            </dd>
+            
+            <dt><label for="tipmsg">提示信息:</label></dt>
+            <dd>
+            
+                <input type="text" name="tipmsg" class="px oinf"  value="{$activity['tipmsg']}"  /> 
+           
+            
+            </dd>
+            <!--{if $_G['groupid']==1 || $_G['groupid']==2}-->
+            <dt><label for="ext_tuangou">关联团购id:</label></dt>
+            <dd>
+            <input type="text" name="ext_tuangou" class="px oinf"  value="{$activity['ext_tuangou']}"  /> 
+            </dd>
+                    
+            <dt><label for="ext_managers">管理用户Uid:</label></dt>
+            <dd>
+            <input type="text" name="ext_managers" class="px oinf"  value="{$activity['ext_managers']}"  /> 
+            (注: 是uid不是用户名。)
+            </dd>
+            <!--
+            <dt><label for="ext_managers">虚拟数:</label></dt>
+            
+            <dd>
+            <input type="text" name="ext_vnum" class="px oinf"  value="{$activity['ext_vnum']}"  /> 
+            (注: 虚拟增加报名人数。)
+            </dd>
+            -->
+            <!--{/if}-->
+            
+            
+            
+            
+			<!--{if $_G['setting']['activityfield']}-->
+			<dt>{lang optional_data}:</dt>
+			<dd>
+				<ul class="xl2 cl">
+				<!--{loop $_G['setting']['activityfield'] $key $val}-->
+				<li><label for="userfield_$key"><input type="checkbox" name="userfield[]" id="userfield_$key" class="pc" value="$key"{if $activity['ufield']['userfield'] && in_array($key, $activity['ufield']['userfield'])} checked="checked"{/if} />$val</label></li>
+				<!--{/loop}-->
+				</ul>
+			</dd>
+			<!--{/if}-->
+			<!--{if $_G['setting']['activityextnum']}-->
+			<dt><label for="extfield">{lang other_data}:</label></dt>
+			<dd>
+				<textarea name="extfield" id="extfield" class="pt" cols="50" style="width: 270px;"><!--{if $activity['ufield']['extfield']}-->$activity[ufield][extfield]<!--{/if}--></textarea><br />{lang post_activity_message} $_G['setting']['activityextnum'] {lang post_option}
+			</dd>
+			<!--{/if}-->
+		</dl>
+	</div>
+	<div class="sadd z">
+		<dl>
+		
+            <!--{if $_G['groupid']==1 || $_G['groupid']==2}-->
+
+			<!--{if $_G['setting']['activitycredit']}-->
+			<dt><label for="activitycredit">{lang consumption_credit}:</label></dt>
+			<dd>
+				<input type="text" name="activitycredit" id="activitycredit" class="px" value="$activity[credit]" />{$_G['setting']['extcredits'][$_G['setting']['activitycredit']][title]}
+				<p class="xg1">{lang user_consumption_money}</p>
+			</dd>
+			<!--{/if}-->
+            
+           
+            <dt><label for="ext_credit_2">扣除旺财:</label></dt>
+			<dd>
+				<input type="text" name="ext_credit_2" id="ext_credit_2" class="px" value="$activity[ext_credit_2]" />旺财
+			</dd>
+            
+            
+            <dt><label for="ext_jingpai">积分竞拍:</label></dt>
+			<dd>
+                <select name="ext_jingpaitype">
+                    <option <!--{if !$activity[ext_jingpaitype]}-->selected="selected"<!--{/if}--> value="0">类型</option>
+                    <option <!--{if $activity[ext_jingpaitype]==1}-->selected="selected"<!--{/if}--> value="1">威望</option>
+                    <option <!--{if $activity[ext_jingpaitype]==2}-->selected="selected"<!--{/if}--> value="2">旺财</option>
+                </select>
+                起拍:
+				<input style="width: 20px;" type="text" name="ext_jingpai" id="ext_jingpai" class="px" value="$activity[ext_jingpai]" />
+                获奖数: <input style="width: 20px;" type="text" name="ext_jiangnum" id="ext_jiangnum" class="px" value="$activity[ext_jiangnum]" />
+                <br />如选择了竞拍积分类型活动贴将变成积分竞拍贴，请填写起拍,和获奖人数
+			</dd>
+            
+            <!--{/if}-->
+            
+            
+        
+        
+			<dt><label for="cost">{lang activity_payment}:</label></dt>
+			<dd>
+				<input type="text" name="cost" id="cost" class="px" onkeyup="checkvalue(this.value, 'costmessage')" value="$activity[cost]" tabindex="1" />{lang payment_unit}
+				<span id="costmessage"></span>
+			</dd>
+			<dt><label for="activityexpiration">{lang post_closing}:</label></dt>
+			<dd class="hasd cl">
+				<span>
+					<input type="text" name="activityexpiration" id="activityexpiration" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$activity[expiration]" tabindex="1" />
+				</span>
+				<a href="javascript:;" class="dpbtn" onclick="showselect(this, 'activityexpiration')">^</a>
+			</dd>
+			<!--{if $allowpostimg}-->
+				<dt>{lang post_topic_image}:</dt>
+				<dd class="pns">
+					<p><button type="button" class="pn" onclick="uploadWindow(function (aid, url){activityaid_upload(aid, url)})"><span><!--{if $activityattach[attachment]}-->{lang update}<!--{else}-->{lang upload}<!--{/if}--></span></button></p>
+					<input type="hidden" name="activityaid" id="activityaid" {if $activityattach[attachment]}value="$activityattach[aid]" {/if}/>
+					<input type="hidden" name="activityaid_url" id="activityaid_url" />
+					<span class="xg1">
+					<!--{if $activityattach[attachment]}-->
+						{lang post_click_message_1}
+					<!--{else}-->
+						{lang post_click_message_2}
+					<!--{/if}-->
+					</span>
+					<div id="activityattach_image">
+					<!--{if $activityattach[attachment]}-->
+						<a href="$activityattach[url]/$activityattach[attachment]" target="_blank"><img class="spimg" src="$activityattach[url]/{if $activityattach['thumb']}{eval echo getimgthumbname($activityattach['attachment']);}{else}$activityattach[attachment]{/if}" alt="" /></a>
+					<!--{/if}-->
+					</div>
+				</dd>
+			<!--{/if}-->
+			<!--{hook/post_activity_extra}-->
+		</dl>
+	</div>
+</div>
+<script type="text/javascript" reload="1">
+simulateSelect('gender');
+function checkvalue(value, message){
+	if(!value.search(/^\d+$/)) {
+		$(message).innerHTML = '';
+	} else {
+		$(message).innerHTML = '<b>{lang input_invalid}</b>';
+	}
+}
+
+EXTRAFUNC['validator']['special'] = 'validateextra';
+function validateextra() {
+	if($('postform').starttimefrom_0.value == '' && $('postform').starttimefrom_1.value == '') {
+		showDialog('{lang post_error_message_1}', 'alert', '', function () { if($('activitytime').checked) {$('postform').starttimefrom_1.focus();} else {$('postform').starttimefrom_0.focus();} });
+		return false;
+	}
+	if($('postform').activityplace.value == '') {
+		showDialog('{lang post_error_message_2}', 'alert', '', function () { $('postform').activityplace.focus() });
+		return false;
+	}
+	if($('postform').activityclass.value == '') {
+		showDialog('{lang post_error_message_3}', 'alert', '', function () { $('postform').activityclass.focus() });
+		return false;
+	}
+	return true;
+}
+function activityaid_upload(aid, url) {
+	$('activityaid_url').value = url;
+	updateactivityattach(aid, url, '{$_G['setting']['attachurl']}forum');
+}
+</script>

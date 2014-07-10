@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-control" content="{if $_G['setting']['mobile'][mobilecachetime] > 0}{$_G['setting']['mobile'][mobilecachetime]}{else}no-cache{/if}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no" />
+<meta name="keywords" content="{if !empty($metakeywords)}{echo dhtmlspecialchars($metakeywords)}{/if}" />
+<meta name="description" content="{if !empty($metadescription)}{echo dhtmlspecialchars($metadescription)} {/if},$_G['setting']['bbname']" />
+<title><!--{if !empty($navtitle)}-->$navtitle - <!--{/if}--><!--{if empty($nobbname)}--> <!--{/if}--> 望京网触屏版</title>
+<link rel="stylesheet" href="{STATICURL}image/mobile/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="{STATICURL}image/mobile/images/bbs.css" type="text/css" media="all">
+<script src="{STATICURL}js/mobile/jquery-1.8.3.min.js?{VERHASH}"></script>
+
+<script type="text/javascript">var STYLEID = '{STYLEID}', STATICURL = '{STATICURL}', IMGDIR = '{IMGDIR}', VERHASH = '{VERHASH}', charset = '{CHARSET}', discuz_uid = '$_G[uid]', cookiepre = '{$_G[config][cookie][cookiepre]}', cookiedomain = '{$_G[config][cookie][cookiedomain]}', cookiepath = '{$_G[config][cookie][cookiepath]}', showusercard = '{$_G[setting][showusercard]}', attackevasive = '{$_G[config][security][attackevasive]}', disallowfloat = '{$_G[setting][disallowfloat]}', creditnotice = '<!--{if $_G['setting']['creditnotice']}-->$_G['setting']['creditnames']<!--{/if}-->', defaultstyle = '$_G[style][defaultextstyle]', REPORTURL = '$_G[currenturl_encode]', SITEURL = '$_G[siteurl]', JSPATH = '$_G[setting][jspath]';</script>
+
+<script src="{STATICURL}js/mobile/common.js?{VERHASH}1" charset="{CHARSET}"></script>
+
+
+
+<script src="{STATICURL}js/mmenu/jquery.min.js" type="text/javascript"></script>
+<link href="{STATICURL}js/mmenu/jquery.mmenu.css" rel="stylesheet" />
+<link href="{STATICURL}js/mmenu/plus.css?t=1" rel="stylesheet" type="text/css" />
+<script src="{STATICURL}js/mmenu/jquery.mmenu.js" type="text/javascript"></script>
+
+<!-- veikei moible touch plus -->
+
+<style>
+.dengpao{ border:none; width:12px; height:13px;}
+.icon_fatie{ background-position:-84px;}
+.user_fun a.icon_fatie {
+background-position: -84px 0;
+}
+.user_fun a:hover.icon_fatie {
+background-position: -84px -28px;
+}
+.txt{ border:1px solid #ccc;}
+.aa{text-align:center; width:100%; margin-top:-38px; height:38px; }
+</style>
+<script type="text/javascript">
+$(function() {
+ $('nav#menu').mmenu();
+	$('#menu a[rel!="external"]').on(
+		'click',
+		function()
+		{
+			var _t = this;
+			$('#menu').one(
+				'closed.mm',
+				function()
+				{
+					$.mobile.changePage( _t.href, {
+						transition: 'slide'
+					});
+				}
+			);
+		}
+	);
+});
+</script>
+
+</head>
+
+<body class="bg">
+
+<!--{if $_G[groupid]==8}-->
+<style>
+#announce1 {
+
+height: 29px;
+line-height: 30px;
+background: #FFF2A7;
+text-align: center;
+font-weight: 700;
+color: #FF4800;
+border-bottom: 1px solid #E7CB5A;
+}</style>
+
+<span style="display: inline-block;width: 100%; ;background: #FFF2A7; font-size:16px; text-align:center">你的帐号还没有激活，点此<a href="active.php" style="color: red; " >立即激活</a></span>
+
+<!--{/if}-->
+      
+<!--{hook/global_header_mobile}-->

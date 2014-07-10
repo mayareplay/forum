@@ -1,0 +1,11 @@
+<!--{template common/header_ajax}-->
+<select name="tid" id="" class="ps" style="width: 200px;" onchange="$('tid_hand').value=this.value;">
+	<!--{loop $threads $basethread}-->
+	<option value="{$basethread[tid]}">{$basethread[subject]}</option>
+	<!--{/loop}-->
+</select>
+{lang threadlink:tid} <input type="text" name="tid_hand" id="tid_hand" class="px p_fre" size="5" value="" />
+<script type="text/javascript" reload="1">
+	$('change_thread_handler').href='plugin.php?id=threadlink:mod&action=threads&page={$page}';
+</script>
+<!--{template common/footer_ajax}-->

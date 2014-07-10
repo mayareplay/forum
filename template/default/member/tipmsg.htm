@@ -1,0 +1,11 @@
+    <style>
+    .stmp{width: 600px; margin: auto; }
+    .stmp li{height: 20px; float: left; color:#999; font-size: 16px;margin-left: 20px; margin-top: 20px;}
+    .stmp li.selected{font-weight: bold; color: black;}
+    </style>
+    <ul class="stmp">
+        <li <!--{if CURSCRIPT =="member"}-->  class="selected"<!--{/if}-->>1.填写信息</li>
+        <li <!--{if CURSCRIPT =="active"}-->  class="selected"<!--{/if}-->>2.激活账户</li>
+    </ul>
+    
+    <div style="clear: both;"></div>

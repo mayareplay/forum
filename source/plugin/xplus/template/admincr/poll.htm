@@ -1,0 +1,76 @@
+<!--{template common/header}-->
+<link rel="stylesheet" type="text/css" href="source/plugin/xplus/template/common/admincr.css?{VERHASH}" />
+<script type="text/javascript" src="{$_G['setting']['jspath']}calendar.js?{VERHASH}"></script>
+<script type="text/javascript" src="{$_G['showmessage']['jspath']}xplus_admincr.js?{VERHASH}"></script>
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em> 
+		<a href="plugin.php?id=xplus:admincr">{lang xplus:admincr}</a> <em>&rsaquo;</em> 
+        <a href="plugin.php?id=xplus:admincr&mod=poll">{lang xplus:mod_poll}</a> <em>&rsaquo;</em> 
+        <!--{if $action == 'list'}--> 
+        <a href="plugin.php?id=xplus:admincr&mod=poll&action={$action}">{lang xplus:poll_list}</a>
+        <!--{elseif $action == 'guide'}-->
+        <a href="plugin.php?id=xplus:admincr&mod=poll&action={$action}">{lang xplus:poll_guide}</a>    
+        <!--{/if}-->
+	</div>
+</div>
+
+<div id="ct" class="ct2_a wp cl">
+	<div class="mn">
+        <!--{if $action == 'list'}-->
+            <ul class="tb cl">
+                <li class="a"><a href="plugin.php?id=xplus:admincr&mod=poll&action=list">{lang xplus:poll_list}</a></li>                              
+                <li class="o y"><a href="plugin.php?id=xplus:admincr&mod=poll&action=guide" target="_blank">{lang xplus:poll_list_add}</a></li> 
+            </ul> 
+            <!--{template xplus:admincr/poll_list}-->
+        <!--{elseif in_array($action, array('setting', 'items', 'meminfo', 'statistics', 'guide'))}-->   
+            <!--{if $action == 'guide' || $inguide == 1}-->
+                <div class="bm bw0" id="gnav">
+                    <ul class="tb cl">
+                        <li{if $action == 'guide'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=poll&action=guide">{lang xplus:poll_guide_step1}</a></li>
+                        <li{if $action == 'setting'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=poll&action=setting&inguide=1{if $pollid}&pollid=$pollid{/if}">{lang xplus:poll_guide_step2}</a></li>	
+                        <li{if $action == 'items'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=poll&action=items&inguide=1{if $pollid}&pollid=$pollid{/if}">{lang xplus:poll_guide_step3}</a></li> 
+                        <li{if $action == 'meminfo'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=poll&action=meminfo&inguide=1{if $pollid}&pollid=$pollid{/if}">{lang xplus:poll_guide_step4}</a></li> 
+                    <!--{if $action == 'setting'}-->
+                        <li class="o y"><a href="plugin.php?id=xplus:admincr&mod=poll&action=items&inguide=1{if $pollid}&pollid=$pollid{/if}">{lang xplus:guide_nextstep}</a></li> 
+                    <!--{elseif $action == 'items'}-->
+                        <li class="o y"><a href="plugin.php?id=xplus:admincr&mod=poll&action=meminfo&inguide=1{if $pollid}&pollid=$pollid{/if}">{lang xplus:guide_nextstep}</a></li>
+                    <!--{elseif $action == 'meminfo'}-->
+                        <li class="o y"><a href="plugin.php?id=xplus:admincr&mod=poll&action=list">{lang xplus:guide_finish}</a></li>
+                    <!--{/if}-->
+                    </ul>
+                </div> 
+            <!--{else}-->
+                <div class="bm bw0">
+                    <ul class="tb cl">
+                        <li{if $action == 'setting'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=poll&action=setting&pollid=$pollid">{lang xplus:poll_nav_setting}</a></li>
+                        <li{if $action == 'items'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=poll&action=items&pollid=$pollid">{lang xplus:poll_nav_item_category}</a></li>  
+                        <li{if $action == 'meminfo'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=poll&action=meminfo&pollid=$pollid">{lang xplus:poll_nav_meminfo}</a></li>      
+                        <li{if $action == 'statistics'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=poll&action=statistics&pollid=$pollid">{lang xplus:poll_nav_statistics}</a></li>                                 
+                    </ul>
+                </div>
+            <!--{/if}-->
+            <!--{if $action == 'setting'}--> 
+                <!--{template xplus:admincr/poll_setting}-->
+            <!--{elseif $action == 'guide'}--> 
+                <!--{template xplus:admincr/poll_guide}-->
+            <!--{elseif $action == 'items'}--> 
+                <!--{template xplus:admincr/poll_items}-->
+            <!--{elseif $action == 'meminfo'}--> 
+                <!--{template xplus:admincr/poll_meminfo}-->
+            <!--{elseif $action == 'statistics'}--> 
+                <!--{template xplus:admincr/poll_statistics}-->
+            <!--{/if}-->
+        <!--{/if}-->
+	</div>
+	<div class="appl">
+		<!--{subtemplate xplus:admincr/nav}-->
+	</div>
+</div>
+<script type="text/javascript" reload="1">
+	simulateSelect('fieldid');
+    simulateSelect('type');
+    simulateSelect('category');
+</script>
+
+<!--{template common/footer}-->

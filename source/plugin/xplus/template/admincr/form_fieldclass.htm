@@ -1,0 +1,71 @@
+<ul class="tbmu">
+    <li><a href="plugin.php?id=xplus:admincr&mod=form&action=fieldclass&type=admin" class="a">{lang xplus:form_fieldclass}</a></li>
+    <li><span class="pipe">|</span></li>
+    <li id="addjs1" class="hasdropmenu" onmouseover="dropmenu(this);">
+        <a href="plugin.php?id=xplus:admincr&mod=form&action=fieldlist&type=admin">{lang xplus:form_fieldlist}</a>
+        <div id="addjs1child" class="dropmenu1" style="position: absolute; z-index: 301; left: 169px; top: 28px; display: none;">
+    		<!--{loop $classs $class}-->
+    		<a href="plugin.php?id=xplus:admincr&mod=form&action=fieldlist&type=admin&classid={$class[classid]}" onclick="">{$class[title]}</a>
+    		<!--{/loop}-->
+		</div>
+    </li>
+</ul>
+<div class="bm bw0">
+	<script type="text/JavaScript">
+		var rowtypedata = [
+			[
+				[1, '', ''],
+				[1, '<input type="text" class="px" size="2" name="newdisplayorder[]" value="0">', ''],
+				[1, '<input type="text" class="px" size="40" name="newtitle[]">'],
+				[1, '']
+			],
+		];
+	</script>
+	 <form name="cpform" method="post" autocomplete="off" action="plugin.php?id=xplus:admincr&mod=form&action=fieldclass&type=admin" id="cpform">
+		<input name="formhash" value="{FORMHASH}" type="hidden">
+		<input id="formscrolltop" name="scrolltop" value="" type="hidden">
+		<input name="anchor" value="" type="hidden">
+		<table class="dt mtm lt">
+			<tr>
+				<th width="3">&nbsp;</th>
+				<th width="60">{lang xplus:form_field_order}</th>
+				<th>{lang xplus:form_fieldclass_name}</th>  
+				<th></th>
+			</tr>
+			<!--{if !$classs}-->
+			<tr>
+				<td></td> 
+				<td colspan="4">
+					<span><strong>{lang xplus:form_fieldclass_null}</strong></span>
+				</td>
+			</tr>    
+			<!--{else}-->
+			<!--{loop $classs $class}-->
+			<tr>
+				<td><input class="checkbox" name="delete[]" value="{$class[classid]}" type="checkbox" /></td>
+				<td><input size="2" name="displayorder[{$class[classid]}]" value="{$class[displayorder]}" type="text" class="px" /></td>        
+				<td><input size="40" name="title[{$class[classid]}]" value="{$class[title]}" type="text" class="px" /></td>       
+				<td></td>
+			</tr>
+			<!--{/loop}-->
+			<!--{/if}-->
+			<tr>
+			<td class="nb"></td>
+			<td colspan="2"  class="nb">
+                <div id="classlist">
+                    <a href="plugin.php?id=xplus:admincr&mod=form&action=fieldclass&type=admin###" onclick="addrow(this, 0)" id="addtr">[+]&nbsp;{lang xplus:form_fieldclass_add}</a>
+                </div>
+            </td>
+			<td class="nb"></td>
+			</tr>
+			<tr>
+				<td colspan="4"  class="nb">
+					<label for="chkall" onclick="checkall(this.form, 'delete')"><input type="checkbox" name="chkall" id="chkall" class="pc" />{lang delete}</label>&nbsp;
+					<button type="submit" name="fieldclasssubmit" value="true" class="pn vm"><em>{lang xplus:submit}</em></button>
+					<!--{if $multipage}--><div class="pg cl">$multipage</div><!--{/if}-->
+				</td>
+			</tr>
+			<script type="text/JavaScript">_attachEvent(document.documentElement, 'keydown', function (e) { entersubmit(e, 'fieldlistsubmit'); });</script>
+		</table>
+	</form>              
+</div>

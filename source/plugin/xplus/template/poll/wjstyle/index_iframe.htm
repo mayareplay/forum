@@ -1,0 +1,118 @@
+<!--{template xplus:common/header}-->
+<style type="text/css">
+body { background: #ccc}
+</style>
+<script type="text/javascript" src="static/js/script_city.js"></script>
+<script type="text/javascript">
+    var iniframe = {if $iniframe} true {else} false {/if};
+</script>
+<div id="iniframe" style="width: {$width}px; height: {$height}px;">
+    <form id="pollform" onsubmit="ajaxpost('pollform', 'return_pollresult');" method="post" action="plugin.php?id=xplus:poll&inajax=1&action=pollsubmit">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+        <input type="hidden" name="handlekey" value="pollresult" />
+        <input type="hidden" name="pid" value="{$pollid}" />
+        <input type="hidden" name="iniframe" value="{$iniframe}" />
+        <input type="hidden" name="width" value="{$width}" />
+        <input type="hidden" name="height" value="{$height}" />
+        <!--{if $categoryid}-->
+        <input type="hidden" name="cid" value="{$categoryid}" />
+        <!--{/if}-->
+        <!--{if $iscategoried && $categoryid}-->
+        <input type="hidden" name="step" value="{$step}" />
+        <!--{else}-->
+        <input type="hidden" name="finish" value="1" />
+        <!--{/if}-->
+        <!--{loop $items $i $item}-->
+        <div class="field" id="field">
+            <!--{eval $i = $i + 1;}-->
+            <!--{eval $itemid = $item['itemid'];}-->
+            <h3 class="itemtitle"><span>{$i}. </span>{$item[subject]}<!--{if $item['must'] == 1}--><span style="color:#ff9000">*</span><!--{/if}--></h3>
+            <input type="hidden" name="type[{$item[itemid]}]" value="{$item[type]}" />
+            <!--{if $item['type'] == 'radio'}-->
+                <!--{loop $options[$itemid] $option}-->
+                <p>
+                    <!--{if $option['istextfield']}-->
+                        <!--{eval $text = explode('[text]', $option['caption'])}-->
+                            <label class="itemtext"><input type="radio" name="res[{$item[itemid]}]" value="{$option[optionid]}" />{$text[0]}</label>
+                            <input type="text" name="text[{$item[itemid]}][{$option[optionid]}]" value="" class="txt" />{$text[1]}
+                    <!--{elseif $option['iscityfield']}-->
+                        <!--{eval $text = explode('[city]', $option['caption'])}-->
+                        <label class="itemtext"><input type="radio" name="res[{$item[itemid]}]" value="{$option[optionid]}" />{$text[0]}</label> 
+                        <span id="citybox">
+                            <script type="text/javascript">
+                				showprovince('city[{$item[itemid]}][{$option[optionid]}]', 'cityc[{$item[itemid]}][{$option[optionid]}]', '', 'citybox', 'slt');
+            				</script>
+                            <select name="cityc[{$item[itemid]}][{$option[optionid]}]" id="cityc[{$item[itemid]}][{$option[optionid]}]" class="slt"><option value="">{lang xplus:poll_city}</option></select>
+                        </span>
+                    <!--{else}-->
+                        <label class="itemtext"><input type="radio" name="res[{$item[itemid]}]" value="{$option[optionid]}" />{$option[caption]}</label> 
+                    <!--{/if}-->
+                </p> 
+                <!--{/loop}--> 
+            <!--{elseif $item['type'] == 'checkbox'}-->
+                <!--{loop $options[$itemid] $option}-->
+                <p>
+                    <!--{if $option['istextfield']}-->
+                        <!--{eval $text = explode('[text]', $option['caption'])}-->
+                            <label class="itemtext"><input type="checkbox" name="res[{$item[itemid]}][]" value="{$option[optionid]}" />{$text[0]}</label>
+                            <input type="text" name="text[{$item[itemid]}][{$option[optionid]}]" value="" class="txt" />{$text[1]}
+                    <!--{elseif $option['iscityfield']}-->
+                        <!--{eval $text = explode('[city]', $option['caption'])}-->
+                        <label class="itemtext"><input type="checkbox" name="res[{$item[itemid]}][]" value="{$option[optionid]}" />{$text[0]}</label> 
+                        <span id="citybox">
+                            <script type="text/javascript">
+                				showprovince('city[{$item[itemid]}][{$option[optionid]}]', 'cityc[{$item[itemid]}][{$option[optionid]}]', '', 'citybox', 'slt');
+            				</script>
+                            <select name="cityc[{$item[itemid]}][{$option[optionid]}]" id="cityc[{$item[itemid]}][{$option[optionid]}]" class="slt"><option value="">{lang xplus:poll_city}</option></select>
+                        </span>
+                    <!--{else}-->
+                        <label class="itemtext"><input type="checkbox" name="res[{$item[itemid]}][]" value="{$option[optionid]}" />{$option[caption]}</label> 
+                    <!--{/if}-->
+                </p>
+                <!--{/loop}-->
+            <!--{elseif $item['type'] == 'text'}-->
+                <p><label class="itemtext"><input type="text" name="res[{$item[itemid]}]" value="" class="txt" /></label></p>
+            <!--{elseif $item['type'] == 'textarea'}-->
+                <p><textarea cols="80" rows="6" name="res[{$item[itemid]}]" class="tta"></textarea></p>
+            <!--{elseif $item['type'] == 'select'}-->
+                <select name="res[{$item[itemid]}]" class="slt">
+                    <option value="">{lang xplus:select}</option>
+                <!--{loop $options[$itemid] $option}-->
+                    <option value="{$option[optionid]}">{$option[caption]}</option>
+                <!--{/loop}-->
+                </select>
+            <!--{/if}-->
+        </div>
+        <!--{/loop}-->
+        
+        <!--{if $profilelist}-->
+		<div class="personifo" id="personifo">
+			<strong>{lang xplus:poll_meminfo}</strong>
+			<table width="100%" cellspacing="4" cellpadding="0" border="0" style="border-collapse:separate;">
+				<tbody>
+                <!--{loop $profilelist $profile}-->
+				<tr>
+					<td>{$profile[label]}:</td>
+                    <td>
+                        <input type="text" id="profile[{$profile[fieldid]}]" value="{$memprofile[$profile[fieldid]]}" name="profile[{$profile[fieldid]}]" class="txt"/>
+                        <!--{if $profile[must]}-->
+                        <span style="color:#ff9000">*</span>
+                        <!--{/if}-->
+                    </td>
+				</tr>
+                <!--{/loop}-->
+				</tbody>
+			</table>
+		</div>
+        <!--{/if}-->
+		<div class="btn cl">
+        <!--{if !$categoryid}-->
+            <input type="submit" name="votesubmit" class="submit" value="{lang xplus:submit}" />
+        <!--{else}-->   
+            <input type="submit" name="nextsubmit" class="next" value="{lang xplus:submit}" />
+        <!--{/if}-->
+		</div>
+	</form>
+    <div id="return_pollresult" sytle="display:none;">&nbsp;</div>
+</div>
+<!--{template xplus:common/footer}-->

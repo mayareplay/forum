@@ -1,0 +1,42 @@
+<!--nav-->
+
+<nav class="daohang" id="fixedMenu_keleyi_com">
+	<ul>
+    	<li class="<!--{if $view=='quote' && $_GET[show]!='huodong'}-->selected<!--{/if}-->"><a href="forum.php?mobile=2&view=quote&mod=guide">推荐</a></li>
+    	<li class="<!--{if $view=='hot'}-->selected<!--{/if}-->"><a href="forum.php?mobile=2&mod=guide&view=hot">热帖</a></li>
+        <li class="<!--{if $_GET[show]=='huodong'}-->selected<!--{/if}-->"><a href="forum.php?mobile=2&view=quote&mod=guide&show=huodong">活动</a>
+            <!--{if $_GET[show]=='huodong'}-->
+        	<div class="hd">
+			<ul class="dh_hd">
+            	<li <!--{if !$_GET[op]}-->class="selected"<!--{/if}-->><a href="forum.php?mobile=2&view=quote&mod=guide&show=huodong">官方</a></li>
+                <li <!--{if $_GET[op]=='yundong'}-->class="selected"<!--{/if}-->><a href="forum.php?mobile=2&view=quote&mod=guide&show=huodong&op=yundong">运动</a></li>
+                <li <!--{if $_GET[op]=='baby'}-->class="selected"<!--{/if}-->><a href="forum.php?mobile=2&view=quote&mod=guide&show=huodong&op=baby">亲子</a></li>
+            </ul><a href="forum.php?mobile=2&view=quote&mod=guide&show=huodong&op=my" class="acti" <!--{if $_GET[op]=='my'}-->style="color:#CC0000"<!--{/if}-->>我的活动</a></div>
+            <style>
+    			.daohang{ height:64px; background:url(http://www.wangjing.cn/upload/ftp/fxj/bg.png);}
+    			.daohang ul {height: 38px;overflow: hidden;}
+    			.hd{ clear:both; background: none; height:24px;}
+    			 .dh_hd{ position:absolute;  left:0px; margin-top:0px;}
+    			.dh_hd li a{ background:none;   padding:0px; border:none; }
+    			 .daohang .dh_hd li{ float:left; text-align:center; width:auto; line-height:24px; height:24px; padding:2px 8px;}
+    			  .dh_hd li a{ font-size:16px;}
+    		
+                  .dh_hd .selected{ background:#fff; padding-bottom:2px;}
+    			  .dh_hd .selected a{  font-weight:bold; color:#CC0000;}
+    			  .dh_hd .dh_ri{}
+    	
+                  .hd .acti{ position: absolute; right:10px; background:none; height:24px; line-height:24px;color:#FC0; padding:2px 0;}
+            </style>
+            <!--{/if}-->
+        
+        </li>
+        <li class="<!--{if $view=='newthread'}-->selected<!--{/if}-->"><a href="forum.php?mod=guide&view=newthread&mobile=2">新帖</a></li>
+        <li><a href="forum-88-1.html">杂谈</a></li>
+        <li><a href="forum-253-1.html">二手</a></li>
+        <li><a href="forum-106-1.html">亲子</a></li>
+        <li><a href="forum-97-1.html">美食</a></li>
+        
+    </ul>
+</nav>
+<!--nav结束-->
+<div class="clear"></div>

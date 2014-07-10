@@ -1,0 +1,53 @@
+<div class="bm bw0">
+    <div class="exfm">
+        <h2>{lang xplus:poll_nav_statistics}</h2>
+        <table>
+            <tr>
+                <td colspan="4" class="tips">
+                    <p>{lang xplus:poll_statistics_tips}</p>  
+                </td>  
+            </tr>
+        </table>
+    </div>
+    <table class="dt lt">
+        <tr>
+            <th width="40">{lang xplus:poll_statistics_id}</th>
+			<th width="70">{lang xplus:poll_item_category}</th>
+            <th>{lang xplus:poll_item_title}</th>
+			<th width="80">{lang xplus:poll_item_type}</th>
+            <th width="260">{lang xplus:poll_statistics_option}</th>
+            <th width="60">{lang xplus:poll_statistics_count}</th>
+			<th width="80">{lang xplus:poll_statistics_rate}</th>           
+		</tr>
+        <!--{loop $itemlist $itemid $item}-->
+        <!--{eval $itemcount = count($optionlist[$itemid]);}-->
+        <!--{if $itemcount > 0}-->
+            <!--{if count($itemcount) > 0}-->
+                <!--{eval $i = 1;}-->
+                <!--{loop $optionlist[$itemid] $optionid $option}-->
+                <tr>
+                <!--{if $i == 1}-->
+                    <td rowspan="{$itemcount}">{$itemid}</td>
+                    <td rowspan="{$itemcount}">{$categorylist[$item[categoryid]]}</td>
+                    <td rowspan="{$itemcount}">{$item[subject]}</td>
+                    <!--{if $item[type] == 'radio'}-->
+                    <td rowspan="{$itemcount}">{lang xplus:poll_type_radio}</td>
+                    <!--{elseif $item[type] == 'checkbox'}-->
+                    <td rowspan="{$itemcount}">{lang xplus:poll_type_checkbox}</td>
+                    <!--{else}-->
+                    <td rowspan="{$itemcount}">{lang xplus:poll_type_select}</td>
+                    <!--{/if}-->
+                <!--{/if}-->
+                    <td>{$option[caption]}</td>
+                    <td>{$option[count]}</td>
+                    <!--{eval $rate = round(($option[count] / $pollcount), 3) * 100;}-->
+                    <td>{$rate}%</td>
+                    <!--{eval $i++;}-->
+                </tr>
+                <!--{/loop}-->
+            <!--{/if}-->
+        <!--{/if}-->
+        <!--{/loop}-->
+    </table>
+    <!--{if $multipage}--><div class="pg cl mtm">$multipage</div><!--{/if}-->
+</div>

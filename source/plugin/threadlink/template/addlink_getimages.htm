@@ -1,0 +1,17 @@
+<!--{template common/header_ajax}-->
+<!--{if $message}-->
+<div id="tlimg_message">$message</div>
+<script type="text/javascript" reload="1">
+	setTimeout(function(){$('tlimg_message').style.display='none';},2000);
+</script>
+<!--{else}-->
+<!--{loop $attachs $attach}-->
+	<div id="tlaid_{$attach[aid]}_menu" style="display:none;background-color:white;padding:5px;border:1px solid #cdcdcd;">{lang threadlink:image_tips}<br /><input type="text" name="pic[{$attach[aid]}]" class="px" value="aid:{$attach[aid]}" onclick="this.select();" onmouseout="changeImage('{$attach[aid]}',this.value);"></div>
+	<img src="{$attach[attachment]}" width="70" height="70" onclick="selectattach('{$attach[aid]}')" id="tlaid_{$attach[aid]}" class="{if 0}tlimg{else}tlimg_n{/if}"/>
+<!--{/loop}-->
+<script type="text/javascript" reload="1">
+	$('tlimg_more_hand').onclick = function(){ajaxget('plugin.php?id=threadlink:mod&action=getimages&pid={$_G[gp_pid]}&page={$page}', 'tlimg_more_{$_G[timestamp]}');doane(e);return false;}
+</script>
+<div id="tlimg_more_{$_G[timestamp]}" style="display:none;"></div>
+<!--{/if}-->
+<!--{template common/footer_ajax}-->

@@ -1,0 +1,206 @@
+<style>
+    .button_1 {
+    display: block;
+    width: 100%;
+    font-size: 18px;
+    color:#fff;
+    line-height: 20px;
+    text-align: center;
+    border: 1px solid #666;
+    background-color: #F60;
+    padding: 10px 0;
+    }
+	.px{border:1px solid #999}
+</style>
+
+
+
+<script>
+$(function(){
+   var uid = {$_G[uid]};
+   $('#baomingbt').click(function(){
+    
+        if(uid<=0){
+            return true;
+        }
+        $('#baomingbt').hide();
+        $('#boaomingdiv').fadeIn(function(){
+            
+        });
+        return false;    
+    })
+});
+</script>
+
+<!--{if !$_G['uid']}-->
+        <form>
+        <div class="o pns">
+        <a id="baomingbt" href="member.php?mod=logging&action=login"  >
+      
+       <div class="button_style" style="z-index:10000">
+                	我要报名					
+        </div></a>
+	   </div>
+       </form>
+       <br />
+<!--{/if}-->
+
+<!--{if $_G['uid'] && !$activityclose && (!$applied || $isverified == 2)}-->
+	<div id="activityjoin" class="bm mtn" >
+        
+    	<div id="boaomingdiv" class="bm_c pd5 button_stylediv" style="display: none;" >
+        
+        <!--{if $activity['number']<=9999}-->
+        <div class="xw1">我要参加</div>
+        <!--{/if}-->
+        
+	<!--{if $_G['forum']['status'] == 3 && helper_access::check_module('group') && $isgroupuser != 'isgroupuser'}-->
+        <p>{lang activity_no_member}</p>
+        <p><a href="forum.php?mod=group&action=join&fid=$_G[fid]" class="xi2">{lang activity_join_group}</a></p>
+	<!--{else}-->
+    
+		<!--{if $activity['number']<=9999}-->
+      
+        <form name="activity" id="activity" method="post" autocomplete="off" action="forum.php?mod=misc&action=activityapplies&fid=$_G[fid]&tid=$_G[tid]&pid=$post[pid]{if $_GET['from']}&from=$_GET['from']{/if}&mobile=2" >
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+
+			<!--{if $_G['setting']['activitycredit'] && $activity['credit'] && !$applied}--><p class="xi1">{lang activity_need_credit} $activity[credit] {$_G['setting']['extcredits'][$_G['setting']['activitycredit']][title]}</p><!--{/if}-->
+                <!--{if $activity['cost']}-->
+                   <p>{lang activity_paytype} <label><input class="pr" type="radio" value="0" name="payment" id="payment_0" checked="checked" />{lang activity_pay_myself}</label> <label><input class="pr" type="radio" value="1" name="payment" id="payment_1" />{lang activity_would_payment} </label> <input name="payvalue" size="3" class="txt_s" /> {lang payment_unit}</p>
+                <!--{/if}-->
+                <!--{if !empty($activity['ufield']['userfield'])}-->
+                    <!--{loop $activity['ufield']['userfield'] $fieldid}-->
+                    <!--{if $settings[$fieldid][available]}-->
+                        <strong>$settings[$fieldid][title]<span class="xi1">*</span></strong>
+                        $htmls[$fieldid]
+                    <!--{/if}-->
+                    <!--{/loop}-->
+                <!--{/if}-->
+                <!--{if !empty($activity['ufield']['extfield'])}-->
+                    <!--{loop $activity['ufield']['extfield'] $extname}-->
+                        $extname<input placeholder="{$extname}" type="text" name="$extname" maxlength="200" class="txt" value="{if !empty($ufielddata)}$ufielddata[extfield][$extname]{/if}" />
+                    <!--{/loop}-->
+                <!--{/if}-->
+            
+            <p>
+                <!--{if $activity[ext_jingpaitype]}-->
+                
+                出价<input type="text" name="ext_jingpaijiage" id="ext_jingpaijiage" class="pr" value="{$activity[ext_jingpai]}" /> 
+                                            <!--{if $activity['ext_jingpaitype'] == 1}-->
+                            				威望
+                                            <!--{else}-->
+                                            旺财  
+                                            <!--{/if}-->
+                                             ,起拍: {$activity[ext_jingpai]} <!--{if $activity['ext_jingpaitype'] == 1}-->
+                            				威望
+                                            <!--{else}-->
+                                            旺财  
+                                            <!--{/if}-->
+                                            
+              
+              <!--{else}-->
+              人数<input type="text" name="ext_friendnum" id="friendnum__0" class="pr" value="1" />人 (最大报名数<span style="color: red;">{$activity[ext_firends]}</span>人)
+              <!--{/if}-->
+               </p>
+                <!--{if $activity['tipmsg']}-->
+                             提示：<span style="color: red;">$activity['tipmsg']</span><br />
+                        <!--{/if}-->
+                
+            {lang leaveword}<textarea name="message" maxlength="200" cols="28" rows="1" class="txt">$applyinfo[message]</textarea>
+			<div class="o pns">
+				<!--{if $_G['setting']['activitycredit'] && $activity['credit'] && checklowerlimit(array('extcredits'.$_G['setting']['activitycredit'] => '-'.$activity['credit']), $_G['uid'], 1, 0, 1) !== true}-->
+					<p class="xi1">{$_G['setting']['extcredits'][$_G['setting']['activitycredit']][title]} {lang not_enough}$activity['credit']</p>
+				<!--{else}-->
+					<input type="hidden" name="activitysubmit" value="true">
+					<em class="xi1" id="return_activityapplies"></em>
+					<button type="submit" class="button_1"><span>提交报名</span></button>
+				<!--{/if}-->
+			</div>
+		</form>
+      
+        	<!--{/if}-->
+	   	<script type="text/javascript">
+			function succeedhandle_activityapplies(locationhref, message) {
+				showDialog(message, 'notice', '', 'location.href="' + locationhref + '"');
+			}
+		</script>
+	   
+    <!--{/if}-->
+    	</div>
+        <form>
+     
+       
+       
+       <a id="baomingbt" href="member.php?mod=logging&action=login"  >
+      
+       <div class="button_style" style="z-index:10000">
+                	我要报名					
+        </div></a>
+
+       
+       </form>
+    </div>
+<!--{elseif $_G['uid'] && !$activityclose && $applied }-->
+<div id="activityjoincancel" class="bm mtn">
+	<div class="bm_c pd5">
+        <div class="xw1">{lang activity_join_cancel}</div>
+        <form name="activity" method="post" autocomplete="off" action="forum.php?mod=misc&action=activityapplies&fid=$_G[fid]&tid=$_G[tid]&pid=$post[pid]{if $_GET['from']}&from=$_GET['from']{/if}">
+        <input type="hidden" name="formhash" value="{FORMHASH}" />
+  
+  
+
+        <p>
+            <input type="text" name="message" maxlength="200" style="width: 100%" class="px" value="" placeholder="{lang leaveword}" />
+        </p>
+        <p class="mtn">
+        <button type="submit" name="activitycancel"  class="button_1" value="true"><span>退出报名</span></button>
+        </p>
+        </form>
+    </div>
+</div>
+<!--{/if}-->
+
+<style>
+element.style {
+position: fixed;
+bottom: 0;
+margin-bootom: 0px;
+left: 0;
+right: 0;
+margin: 0px;
+border-radius: 0px;
+}
+.button_stylediv{
+    position: fixed;bottom:0;margin-bootom:0px;;left:0;right:0;margin:0px;border-radius: 0px; z-index: 100000;
+    
+    padding:12px 18px; 
+    background:#fff; 
+    font-size:18px; 
+    text-align:left;
+    border:1px solid #FF9000;
+    box-shadow:0px 1px 6px 1px #ccc;
+
+    
+}
+
+.button_style{
+    position: fixed;bottom:0;margin-bootom:0px;;left:0;right:0;margin:0px;border-radius: 0px; z-index: 100000;
+
+    padding:8px 18px; 
+    background:#FFA200; 
+    color:#fff;
+    font-size:18px; 
+    text-align:center;
+    border:1px solid #FF9000;
+    box-shadow:0px 1px 6px 1px #ccc;
+
+    cursor:pointer;
+}   
+.button_style:hover {
+    background:#E6F7FE; 
+    color:#1AA3D1; 
+    border:1px solid #4ABBE0;
+    box-shadow:0px 1px 6px 1px #BEE7F7;
+    }
+</style>
+

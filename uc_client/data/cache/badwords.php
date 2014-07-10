@@ -1,0 +1,13 @@
+<?php
+$_CACHE['badwords'] = array (
+  'findpattern' => 
+  array (
+    0 => '/¼ËÅ®/is',
+  ),
+  'replace' => 
+  array (
+    0 => 'ÃÀÅ®',
+  ),
+);
+
+?>

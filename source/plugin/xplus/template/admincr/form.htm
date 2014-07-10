@@ -1,0 +1,66 @@
+<!--{template common/header}-->
+<script type="text/JavaScript">
+var admincpfilename = 'plugin.php', IN_ADMINCP = true, ISFRAME = 0, STATICURL='static/';
+</script>
+<link rel="stylesheet" type="text/css" href="source/plugin/xplus/template/common/admincr.css?{VERHASH}" />
+<script type="text/javascript" src="{$_G['setting']['jspath']}calendar.js?{VERHASH}"></script>
+<script type="text/javascript" src="{$_G['showmessage']['jspath']}xplus_admincr.js?{VERHASH}"></script>
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em> 
+		<a href="plugin.php?id=xplus:admincr">{lang xplus:admincr}</a> <em>&rsaquo;</em> 
+        <a href="plugin.php?id=xplus:admincr&mod=form">{lang xplus:mod_form}</a> <em>&rsaquo;</em> 
+        <!--{if $action == 'list'}--> 
+        <a href="plugin.php?id=xplus:admincr&mod=form&action={$action}">{lang xplus:form_list}</a>
+        <!--{elseif $action == 'guide'}-->
+        <a href="plugin.php?id=xplus:admincr&mod=form&action={$action}"">{lang xplus:form_guide}</a> 
+		<!--{elseif $action == 'fieldclass'}-->
+        <a href="plugin.php?id=xplus:admincr&mod=form&action={$action}"">{lang xplus:form_fieldclass}</a> 
+		<!--{elseif $action == 'fieldlist'}-->
+        <a href="plugin.php?id=xplus:admincr&mod=form&action={$action}"">{lang xplus:form_fieldlist}</a>
+		<!--{elseif $action == 'rlist'}-->
+        <a href="plugin.php?id=xplus:admincr&mod=form&action={$action}"">{lang xplus:form_rlist}</a> 
+        <!--{/if}-->
+	</div>
+</div>
+
+<div id="ct" class="ct2_a wp cl">
+	<div class="mn">
+        <!--{if in_array($action, array('list', 'fieldclass', 'fieldlist', 'fielddetail'))}--> 
+            <ul class="tb cl">
+        		<li {if $action == 'list'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=form&action=list">{lang xplus:form_list}</a></li>
+        		<li {if $action == 'fieldclass' || $action == 'fieldlist' || $action == 'fielddetail'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=form&action=fieldclass&type=admin">{lang xplus:form_field_manage}</a></li>
+        		<li class="o y"><a href="plugin.php?id=xplus:admincr&mod=form&action=guide&inguide=1" target="_blank">{lang xplus:form_guide_add}</a></li> 
+        	</ul>
+            <!--{if $action == 'list'}-->
+                <!--{template xplus:admincr/form_list}-->
+            <!--{elseif $action == 'fieldclass'}-->
+                <!--{template xplus:admincr/form_fieldclass}-->
+            <!--{elseif $action == 'fieldlist'}-->
+			    <!--{template xplus:admincr/form_fieldlist}-->
+            <!--{elseif $action == 'fielddetail'}-->
+                <!--{template xplus:admincr/form_fielddetail}-->
+            <!--{/if}-->
+        <!--{elseif in_array($action, array('fielddetail', 'rlist'))}--> 
+            <div class="bm bw0">
+    			<ul class="tb cl">
+    				<li><a href="plugin.php?id=xplus:admincr&mod=form&action=guide&step=2&formid=$formid&inguide=0">{lang xplus:form_list_edit}</a></li>
+    				<li{if $action == 'fielddetail'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=form&action=guide&step=3&formid=$formid&inguide=0">{lang xplus:form_list_field}</a></li>
+    				<li{if $action == 'rlist'} class="a"{/if}><a href="plugin.php?id=xplus:admincr&mod=form&action=rlist&formid=$formid">{lang xplus:form_rlist}</a></li>
+    			</ul>
+    		</div>            
+            <!--{if $action == 'rlist'}-->
+    			 <!--{template xplus:admincr/form_rlist}-->
+    		<!--{/if}-->
+        <!--{elseif $action == 'guide'}-->
+			 <!--{template xplus:admincr/form_guide}-->
+        <!--{/if}-->
+	</div>
+	<div class="appl">
+		<!--{subtemplate xplus:admincr/nav}-->
+	</div>
+</div>
+<script type="text/javascript" reload="1">
+	simulateSelect('template');
+</script>
+<!--{template common/footer}-->

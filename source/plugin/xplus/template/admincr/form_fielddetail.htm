@@ -1,0 +1,315 @@
+<div class="bm bw0">
+    <div class="exfm">
+        <h2>{lang xplus:form_fielddetail}</h2>
+        <form method="post" autocomplete="off" action="plugin.php?id=xplus:admincr&mod=form&action=fielddetail">
+            <input type="hidden" name="formhash" value="{FORMHASH}" />
+            <input type="hidden" name="classid" value="{$classid}" />
+            <input type="hidden" name="fieldid" value="{$fieldid}" />
+            <table cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <th width="15%">{lang xplus:form_field_name}:</th>
+                    <td width="35%"><input type="text" id="titlenew" name="titlenew" value="{$formfield[title]}" class="px" style="width: 180px;" /></td>
+                    <th width="15%">{lang xplus:form_fieldlist_varname}:</th>
+                    <td width="35%"><input type="text" id="identifiernew" name="identifiernew" value="{$formfield[identifier]}" class="px" style="width: 180px;" /></td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:form_field_type}:</th>
+                    <td width="35%">
+                        <span class="ftid">
+                            <select name="typenew" id="type" width="168" change="changeselect($('type'));" class="ps">
+                                <option value="number" {if $formfield[type] == 'number'} selected="selected" {/if}>{lang xplus:formfield_type_number}</option>
+                                <option value="qq" {if $formfield[type] == 'qq'} selected="selected" {/if}>{lang xplus:formfield_type_qq}</option>
+                                <option value="mobile" {if $formfield[type] == 'mobile'} selected="selected" {/if}>{lang xplus:formfield_type_mobile}</option>
+                                <option value="telephone" {if $formfield[type] == 'telephone'} selected="selected" {/if}>{lang xplus:formfield_type_telephone}</option>
+                                <option value="text" {if $formfield[type] == 'text'} selected="selected" {/if}>{lang xplus:formfield_type_text}</option>
+                                <option value="custom" {if $formfield[type] == 'custom'} selected="selected" {/if}>{lang xplus:formfield_type_custom}</option>
+                                <option value="radio" {if $formfield[type] == 'radio'} selected="selected" {/if}>{lang xplus:formfield_type_radio}</option>
+                                <option value="checkbox" {if $formfield[type] == 'checkbox'} selected="selected" {/if}>{lang xplus:formfield_type_checkbox}</option>
+                                <option value="textarea" {if $formfield[type] == 'textarea'} selected="selected" {/if}>{lang xplus:formfield_type_textarea}</option>
+                                <option value="select" {if $formfield[type] == 'select'} selected="selected" {/if}>{lang xplus:formfield_type_select}</option>
+                                <option value="calendar" {if $formfield[type] == 'calendar'} selected="selected" {/if}>{lang xplus:formfield_type_calendar}</option>
+                                <option value="email" {if $formfield[type] == 'email'} selected="selected" {/if}>{lang xplus:formfield_type_email}</option>
+                                <option value="url" {if $formfield[type] == 'url'} selected="selected" {/if}>{lang xplus:formfield_type_url}</option>
+                                <option value="image" {if $formfield[type] == 'image'} selected="selected" {/if}>{lang xplus:formfield_type_image}</option>
+                                <option value="range" {if $formfield[type] == 'range'} selected="selected" {/if}>{lang xplus:formfield_type_range}</option>
+                            </select>
+                        </span>
+                    </td>
+                    <th width="15%">{lang xplus:form_fieldclass}:</th>
+                    <td width="35%">
+                        <span class="ftid">
+                            <select name="classidnew" id="class" width="168">
+                                <!--{loop $classselect $class}-->
+                                <option value="{$class[classid]}" {if $formfield[classid] == $class[classid]} selected="selected" {/if}>{$class[title]}</option>   
+                                <!--{/loop}-->
+                            </select>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_desc}:</th>
+                    <td width="35%" class="rowform">
+                        <textarea rows="6" name="descriptionnew" id="descriptionnew" cols="50" class="tarea tta pt">$formfield[description]</textarea>
+                    </td>
+                    <th width="15%"></th>
+                    <td width="35%"></td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_unit}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" id="unitnew" name="unitnew" value="{$formfield[unit]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%"></th>
+                    <td width="35%"></td>
+                </tr>
+                </tbody>
+                <tbody id="style_calendar" {if $formfield['type'] != 'calendar'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_inputsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[calendar][inputsize]" value="{$formfield[rules][inputsize]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr>    
+                </tbody>
+                <tbody id="style_number" {if $formfield['type'] != 'number'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_maxnum}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[number][maxnum]" value="{$formfield[rules][maxnum]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_edit_minnum}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[number][minnum]" value="{$formfield[rules][minnum]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr> 
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_inputsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[number][inputsize]" value="{$formfield[rules][inputsize]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_defaultvalue}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[number][defaultvalue]" value="{$formfield[rules][defaultvalue]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr>  
+                </tbody> 
+                <tbody id="style_qq" {if $formfield['type'] != 'qq'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_inputsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[qq][inputsize]" value="{$formfield[rules][inputsize]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_defaultvalue}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[qq][defaultvalue]" value="{$formfield[rules][defaultvalue]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr>    
+                </tbody>  
+                <tbody id="style_mobile" {if $formfield['type'] != 'mobile'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_inputsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[mobile][inputsize]" value="{$formfield[rules][inputsize]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_defaultvalue}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[mobile][defaultvalue]" value="{$formfield[rules][defaultvalue]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr>    
+                </tbody> 
+                <tbody id="style_telephone" {if $formfield['type'] != 'telephone'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_inputsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[telephone][inputsize]" value="{$formfield[rules][inputsize]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_defaultvalue}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[telephone][defaultvalue]" value="{$formfield[rules][defaultvalue]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr>    
+                </tbody>  
+                <tbody id="style_text" {if $formfield['type'] != 'text'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_textmax}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[text][maxlength]" value="{$formfield[rules][maxlength]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_edit_inputsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[text][inputsize]" value="{$formfield[rules][inputsize]}" class="px" style="width: 180px;" />
+                    </td> 
+                </tr> 
+                <tr>
+                    <th width="15%">{lang xplus:formfield_defaultvalue}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[text][defaultvalue]" value="{$formfield[rules][defaultvalue]}" class="px" style="width: 180px;" />
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>   
+                </tbody>
+                <tbody id="style_custom" {if $formfield['type'] != 'custom'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_regular}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[custom][regular]" value="{$formfield[rules][regular]}" class="px" style="width: 180px;" />
+                    </td>
+                    <td colspan="2" class="tips2">{lang xplus:formfield_edit_regular_comment}</td> 
+                </tr> 
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_inputsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[custom][inputsize]" value="{$formfield[rules][inputsize]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_defaultvalue}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[custom][defaultvalue]" value="{$formfield[rules][defaultvalue]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr>   
+                </tbody>
+                <tbody id="style_textarea" {if $formfield['type'] != 'textarea'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_textmax}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[textarea][maxlength]" value="{$formfield[rules][maxlength]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_edit_colsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[textarea][colsize]" value="{$formfield[rules][colsize]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr> 
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_rowsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[textarea][rowsize]" value="{$formfield[rules][rowsize]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_defaultvalue}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[textarea][defaultvalue]" value="{$formfield[rules][defaultvalue]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr> 
+                </tbody>
+                <tbody id="style_select" {if $formfield['type'] != 'select'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_choices}:</th>
+                    <td width="35%" class="rowform">
+                        <textarea rows="6" name="rules[select][choices]" cols="50" class="tarea tta pt">{$formfield[rules][choices]}</textarea>
+                    </td>
+                    <td colspan="2" class="tips2">{lang xplus:formfield_edit_choices_comment}</td>
+                </tr> 
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_inputsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[select][inputsize]" value="{$formfield[rules][inputsize]}" class="px" style="width: 180px;" />
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>   
+                </tbody> 
+                <tbody id="style_radio" {if $formfield['type'] != 'radio'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_choices}:</th>
+                    <td width="35%" class="rowform">
+                        <textarea rows="6" name="rules[radio][choices]" cols="50" class="tarea tta pt">{$formfield[rules][choices]}</textarea>
+                    </td>
+                    <td colspan="2" class="tips2">{lang xplus:formfield_edit_choices_comment}</td> 
+                </tr>    
+                </tbody>
+                <tbody id="style_checkbox" {if $formfield['type'] != 'checkbox'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_choices}:</th>
+                    <td width="35%" class="rowform">
+                        <textarea rows="6" name="rules[checkbox][choices]" cols="50" class="tarea tta pt">{$formfield[rules][choices]}</textarea>
+                    </td>
+                    <td colspan="2" class="tips2">{lang xplus:formfield_edit_choices_comment}</td> 
+                </tr>    
+                </tbody> 
+                <tbody id="style_image" {if $formfield['type'] != 'image'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_inputsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[image][inputsize]" value="{$formfield[rules][inputsize]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_edit_images_maxweight}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[image][maxwidth]" value="{$formfield[rules][maxwidth]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr> 
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_images_maxheight}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[image][maxheight]" value="{$formfield[rules][maxheight]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_edit_images_minweight}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[image][minwidth]" value="{$formfield[rules][minwidth]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr> 
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_images_minweight}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[image][minheight]" value="{$formfield[rules][minheight]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_edit_images_filesize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[image][maxfilesize]" value="{$formfield[rules][maxfilesize]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr> 
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_images_makethumb}:</th>
+                    <td width="35%" class="rowform">
+                        <label><input type="radio" name="rules[image][makethumb]" value="1" {if $formfield[rules][makethumb]}checked="checked"{/if}/>{lang xplus:yes}</label>
+                        <label><input type="radio" name="rules[image][makethumb]" value="0" {if !$formfield[rules][makethumb]}checked="checked"{/if}/>{lang xplus:no}</label>
+                    </td>
+                    <th width="15%">{lang xplus:formfield_edit_images_thumbweight}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[image][thumbwidth]" value="{$formfield[rules][thumbwidth]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr> 
+                 <tr>
+                    <th width="15%">{lang xplus:formfield_edit_images_thumbheight}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[image][thumbheight]" value="{$formfield[rules][thumbheight]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr> 
+                </tbody>  
+                <tbody id="style_range" {if $formfield['type'] != 'range'} style="display: none;" {/if}>
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_maxnum}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[range][maxnum]" value="{$formfield[rules][maxnum]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_edit_minnum}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[range][minnum]" value="{$formfield[rules][minnum]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr> 
+                <tr>
+                    <th width="15%">{lang xplus:formfield_edit_inputsize}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[range][inputsize]" value="{$formfield[rules][inputsize]}" class="px" style="width: 180px;" />
+                    </td>
+                    <th width="15%">{lang xplus:formfield_edit_searchtxt}:</th>
+                    <td width="35%" class="rowform">
+                        <input type="text" name="rules[range][searchtxt]" value="{$formfield[rules][searchtxt]}" class="px" style="width: 180px;" />
+                    </td>
+                </tr> 
+                </tbody>  
+                <tbody>      
+                <tr>
+                    <th>&nbsp;</th>
+                    <td colspan="3">
+                        <button type="submit" name="fielddetailsubmit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                    </td>
+                </tr>
+                </tbody> 
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" reload="1">
+	simulateSelect('type');
+    simulateSelect('class');
+</script>

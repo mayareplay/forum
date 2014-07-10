@@ -1,0 +1,97 @@
+<div class="bm bw0">
+    <div class="exfm">
+        <h2>{lang xplus:vote_choice_add}</h2> 
+        <form method="post" autocomplete="off" action="plugin.php?id=xplus:admincr&mod=vote&action=choiceed">
+            <input type="hidden" name="formhash" value="{FORMHASH}" />
+            <input type="hidden" name="voteid" value="$voteid" />
+            <!--{if $inguide}--><input type="hidden" value="1" name="inguide"/><!--{/if}-->
+            <table cellspacing="0" cellpadding="0">
+                <tbody>
+                <!--{if !$uploadimage}-->
+                <tr>
+                    <th width="15%">{lang xplus:vote_choice_title}:</th>
+                    <td width="35%">
+                        <ul id="choice">
+                            <li>1.<input type="text" id="choice_1" name="choices[]" value="" class="px" size="30"/></li>
+                            <li>2.<input type="text" id="choice_2" name="choices[]" value="" class="px" size="30"/></li>
+                            <li>3.<input type="text" id="choice_3" name="choices[]" value="" class="px" size="30"/></li>
+                            <li>4.<input type="text" id="choice_4" name="choices[]" value="" class="px" size="30"/></li>
+                        </ul>
+                        <a href="javascript::" onclick="addvoteoptions('choice');">[+]&nbsp;{lang xplus:vote_choice_add}</a>
+                    </td>
+                    <th width="15%"></th>
+                    <td width="35%"></td>
+                </tr>                         
+                <tr>
+                    <th>&nbsp;</th>
+                    <td colspan="3">
+                        <button type="submit" name="addsubmit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                    </td>
+                </tr>
+                <!--{else}-->
+                <div class="fswf" id="multiimg">
+            		$uploadflash
+            	</div>
+                <!--{/if}-->
+                </tbody>
+            </table>
+        </form>               
+    </div>
+    <form name="choicelist" id="choicelist" action="plugin.php?id=xplus:admincr&mod=vote&action=choiceed" method="post" enctype="multipart/form-data">
+		<input type="hidden" value="{FORMHASH}" name="formhash"/>
+        <input type="hidden" value="{$voteid}" name="voteid"/>
+        <!--{if $inguide}--><input type="hidden" value="1" name="inguide"/><!--{/if}-->
+        <table class="dt lt">
+            <tr>
+				<th width="30">&nbsp;</th>
+                <!--{if $uploadimage}--> 
+                <th width="80"></th>
+                <!--{/if}-->  
+				<th width="30">{lang xplus:vote_choice_order}</th>
+				<th width="200">{lang xplus:vote_choice_title}</th>
+                <!--{if $uploadimage}--> 
+				<th width="240">{lang xplus:vote_choice_url}</th> 
+                <!--{/if}-->  
+                <th>{lang xplus:vote_choice_count}</th>                    
+			</tr>
+            <!--{loop $choices $choice}-->
+            <tr>
+                <td><input type="checkbox" value="{$choice[choiceid]}" name="delete[]" class="pc" /></td> 
+                <!--{if $uploadimage}--> 
+                <td>
+                    <a id="unfold_{$choice[choiceid]}" class="zklj" href="javascript::" onclick="$('subchoice_{$choice[choiceid]}').style.display='';this.style.display='none';$('fold_{$choice[choiceid]}').style.display='';">{lang xplus:vote_choice_description_unfold}</a>
+                    <a id="fold_{$choice[choiceid]}" class="zklj" href="javascript::" onclick="$('subchoice_{$choice[choiceid]}').style.display='none';this.style.display='none';$('unfold_{$choice[choiceid]}').style.display='';" style="display: none;">{lang xplus:vote_choice_description_fold}</a>
+                </td>  
+                <!--{/if}-->  
+                <td><input type="text" value="{$choice[displayorder]}" name="displayorder[{$choice[choiceid]}]" size="1" class="px" /></td>
+                <td><input type="text" value="{$choice[caption]}" name="caption[{$choice[choiceid]}]" class="px" onmouseout="display('img_{$choice[choiceid]}')" onmouseover="display('img_{$choice[choiceid]}')" />
+                <!--{if $choice[thumburl]}-->
+                <div id="img_{$choice[choiceid]}" style="z-index: 1; position: absolute; border: 5px solid rgb(206, 206, 246); margin: -20px 0pt 0pt 140px; display: none;">
+                    <img class="vmiddle" src="{$choice[thumburl]}" />
+                </div></td>   
+                <!--{/if}--> 
+                <!--{if $uploadimage}-->             
+                <td><input type="text" value="{$choice[detailurl]}" name="detailurl[{$choice[choiceid]}]" class="px" size="30" /></td>                       
+                <!--{/if}--> 
+                <!--{eval $percent = round(($choice[totalnum] / $totalcount) * 100, 2);}-->
+                <td>{$choice[votenum]}&nbsp;+&nbsp;<input type="text" value="{$choice[basicnum]}" name="basicnum[{$choice[choiceid]}]" class="px" size="1" />&nbsp;({$percent}%)</td>
+            </tr> 
+            <!--{if $uploadimage}--> 
+            <tr id="subchoice_{$choice[choiceid]}" style="display: none;">
+                <td></td>
+                <td>{lang xplus:vote_choice_description}</td> 
+                <td colspan="2"><textarea name="description[{$choice[choiceid]}]" class="tarea pt" rows="6" cols="45">{$choice[description]}</textarea></td>
+                <td colspan="2"><input name="uploadfile[{$choice[choiceid]}]" value="" type="file" class="fu" /></td>
+            </tr>
+            <!--{/if}-->    
+            <!--{/loop}-->         
+            <tr>
+                <td colspan="6" class="nb">
+                    <label for="chkall" onclick="checkall(this.form, 'delete')"><input type="checkbox" name="chkall" id="chkall" class="pc" />{lang delete}</label>&nbsp;
+                    <button type="submit" name="listsubmit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                    <!--{if $multipage}--><div class="pg cl">$multipage</div><!--{/if}-->
+                </td>
+            </tr>
+        </table>
+    </form>              
+</div>

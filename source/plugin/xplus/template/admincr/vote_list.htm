@@ -1,0 +1,63 @@
+<ul class="tbmu">
+    <li><a href="plugin.php?id=xplus:admincr&mod=vote&action=list" {if !$type}class="a"{/if}>{lang xplus:vote_list_myvote}</a></li>
+    <li><span class="pipe">|</span></li>
+    <li><a href="plugin.php?id=xplus:admincr&mod=vote&action=list&type=admin" {if $type}class="a"{/if}>{lang xplus:vote_list_allvote}</a></li>
+</ul>
+<form method="post" action="plugin.php?id=xplus:admincr&mod=vote&action=list" class="mtm y">
+    <input type="hidden" value="{FORMHASH}" name="formhash"/>
+    <select id="searchtype" name="searchtype" class="ps vm ls">
+        <option value="id" >{lang xplus:vote_search_type_ID}</option>
+        <option value="title" selected="selected">{lang xplus:vote_search_type_title}</option>
+        <option value="username">{lang xplus:search_type_username}</option>
+	</select>&nbsp;
+    <input type="text" name="searchkey" class="px vm" value="{$searchkey}" />                           
+    <button type="submit" value="true" class="pn vm" name="searchsubmit"><em>{lang search}</em></button>
+</form>
+<div class="bm bw0 z" style="width:100%;">
+    <form name="votelist" id="votelist" action="plugin.php?id=xplus:admincr&mod=vote" method="post">
+		<input type="hidden" value="{FORMHASH}" name="formhash"/>
+        <table class="dt lt">
+            <tr>
+				<th width="20">&nbsp;</th>
+				<th>{lang xplus:vote_list_title}</th>					
+				<!--{if $type}--><th width="60">{lang xplus:list_username}</th><!--{/if}-->     
+                <th width="40">{lang xplus:list_status}</th>
+                <th width="80">{lang xplus:list_starttime}</th>              
+				<th width="80">{lang xplus:list_endtime}</th>
+                <th width="220">{lang xplus:list_operation}</th>
+			</tr>
+            <!--{if !$votes}-->
+            <tr>
+                <td></td>
+                <td colspan="8">
+                    <span><strong>{lang xplus:vote_list_null}</strong></span>
+                </td>
+            </tr>    
+            <!--{else}-->
+            <!--{loop $votes $item}--> 
+            <tr>  
+                <td><input type="checkbox" value="{$item[voteid]}" name="delete[]" class="pc" /></td>
+                <td><a href="plugin.php?id=xplus:vote&vid={$item[voteid]}" title="{$item[title]}" target="_blank">{$item[cuttitle]}</a></td>                             
+                <!--{if $type}--><td>{$item[username]}</td><!--{/if}-->
+                <td>{$item[status]}</td>          
+                <td>{$item[starttime]}</td>
+                <td>{$item[endtime]}</td>
+                <td>
+                    <a href="plugin.php?id=xplus:admincr&mod=vote&action=setting&voteid=$item[voteid]">{lang xplus:vote_list_edit}</a>
+                    <a href="plugin.php?id=xplus:admincr&mod=vote&action=choiceed&voteid=$item[voteid]">{lang xplus:vote_list_choice}</a>
+                    <!--<a href="plugin.php?id=xplus:admincr&mod=vote&action=rlist&voteid=$item[voteid]">{lang xplus:vote_list_result}</a>-->
+                    <a href="plugin.php?id=xplus:vote&vid=$item[voteid]" target="_blank">{lang xplus:vote_list_preview}</a>
+                </td>
+            </tr>
+            <!--{/loop}-->
+            <!--{/if}-->
+            <tr>
+                <td colspan="8" class="nb">
+                    <label for="chkall" onclick="checkall(this.form, 'delete')"><input type="checkbox" name="chkall" id="chkall" class="pc" />{lang delete}</label>&nbsp;
+                    <button type="submit" name="listsubmit" value="true" class="pn vm" onclick="if(!confirm('{lang xplus:vote_list_delete_confirm}'))return false;"><em>{lang submit}</em></button>
+                    <!--{if $multipage}--><div class="pg cl">$multipage</div><!--{/if}-->
+                </td>
+            </tr>
+        </table>
+    </form>              
+</div>

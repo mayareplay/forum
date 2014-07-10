@@ -1,0 +1,30 @@
+<!--{template common/header}-->
+<form action="plugin.php?id=threadlink:mod&action={$action}&tid={$tid}&infloat=yes&amp;{$action}submit=yes" method="post" onsubmit="ajaxpost(this.id, 'return_mods', 'return_mods', 'onerror');return false;" id="threadlinkform" fwin="mods">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<div id="main_threadlink">
+		<h3 class="flb">
+			<em id="returnmessage">{lang threadlink:sort_title}</em>
+			<!--{if $_G['inajax']}--><span><a href="javascript:;" class="flbc" onclick="hideWindow('threadlink')" title="{lang close}">{lang close}</a></span><!--{/if}-->
+		</h3>
+		<div class="c">
+			<table cellspacing="0" cellpadding="0" class="tfm" width="500">
+				<tr>
+					<th>{lang threadlink:sort_now}</th>
+					<td width="365">{lang threadlink:subject}</td>
+				</tr>
+				<!--{loop $threadlinks $link}-->
+				<tr>
+					<th><input type="text" name="displayorder[{$link[lid]}]" class="px p_fre" size="5" value="{$link[displayorder]}"></th>
+					<td style="line-height:24px;">
+						$link[subject]
+					</td>
+				</tr>
+				<!--{/loop}-->
+			</table>
+		</div>
+		<div class="o pns">
+			<button type="submit" name="sortsubmit" id="sort" class="pn pnc" value="true"><strong>{lang threadlink:confirm}</strong></button>
+		</div>
+	</div>
+</form>
+<!--{template common/footer}-->

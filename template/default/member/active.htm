@@ -1,0 +1,124 @@
+<!--{template common/header}-->
+<style type="text/css">
+.activediv{width:600px; margin:auto}
+.activediv p{margin-top:10px; margin-bottom:10px}
+.acitve_menu{margin-left:10px; width:200px;}
+.acitve_menu li{float:left; background-color:#f5f5f5;   height:28px; line-height:28px;  margin-left:3px; width:80px; text-align:center; cursor:pointer}
+.acitve_menu li.selected{background:#FFFFFF; font-weight:bold; border:1px solid #ccc; border-bottom:none}
+</style>
+
+<script type="text/javascript" src="static/js/bindphone.js?t=1"></script>
+<script type="text/javascript">
+
+
+function goEmail(){
+	var url = document.getElementById('email_1').value;
+	url = url.split('@');
+	url = "http://mail."+url[1];;
+	window.open(url);
+}
+
+var referer = "$referer";
+
+function gotoReferer(){
+    showDialog('用户已激活', 'right', '提示信息',function(){
+        location=referer;    
+    });
+}
+
+</script>
+
+
+
+<div id="ct" class="ptm wp cl">
+	<div class="mn">
+    	
+		<div class="bm" id="main_message">
+	       
+			<div class="bm_h bbs" id="main_hnav">
+				<span class="y">
+					激活账户
+				</span>
+				
+				<!--
+				<h3 id="layer_reginfo_t" class="xs2">
+				<span style="background:#fff">手机激活</span>| <span>Email激活</span>
+				</h3>
+				-->
+                
+			</div>
+			<div style="width:300px;position:absolute; margin-top:-29px">
+				<ul class="acitve_menu">
+					<li id="Telbtn" <!--{if $_GET['by']=='mobile'}--> class="selected"<!--{/if}--> ><a href="active.php?by=mobile">手机激活</a></li>
+					<li id="Emailbtn" <!--{if $_GET['by']=='email'}--> class="selected"<!--{/if}-->><a href="active.php?by=email">Email激活</a></li>
+					
+					
+				<ul>
+				<div style="clear:both"></div>
+			</div>
+            
+           
+           <!--{template member/tipmsg}-->
+           
+			<!--form start-->
+            
+<!--{if $_GET[by]=='mobile'}-->
+<div id="TelDiv" >
+			<div class="rfm">
+<table>
+<tr>
+<th><label for="mobile">手机号:</label></th>
+<td><input type="text" id="mobile" name="" class="px" tabindex="1" autocomplete="off" size="25" maxlength="15" value="{$tel}" required /></td>
+<td class="tipcol"><button class="pn pnc" id="registerformsubmit" type="submit" name="regsubmit" value="true" tabindex="1" onclick="return sendCode()"><strong>免费获取短信激活码</strong></button>
+<span id="ckmessage"></span>
+</td>
+</tr>
+</table>
+</div>
+
+<div class="rfm">
+<table>
+<tr>
+<th><label for="vcode_1">短信激活码:</label></th>
+<td><input type="password" id="vcode_1" name="" size="25" tabindex="1" class="px" required /></td>
+<td class="tipcol"><button class="pn pnc" id="registerformsubmit" type="submit" name="regsubmit" value="true" tabindex="1" onclick="bindTel()"><strong>激活账号</strong></button>
+<span id="bindmessage"></span>
+</td>
+</tr>
+</table>
+
+</div>
+</div>
+<!--{else}-->
+<div id="EmailDiv" >
+<div class="rfm">
+<table>
+<tr>
+<th><label for="email_1">Email:</label></th>
+<td><input type="text" id="email_1" name="" autocomplete="off" size="25" tabindex="1" class="px" value="{$_G['member']['email']}" disabled="disabled" /><br /><em id="emailmore">&nbsp;</em></td>
+<td class="tipcol"> <button class="pn pnc" id="registerformsubmit" type="submit" name="regsubmit" value="true" tabindex="1" onclick="goEmail()"><strong>登陆邮箱激活账号</strong></button>
+
+</td>
+</tr>
+
+</table>
+
+未收到邮件？在垃圾邮件中找一找 或 <a href="home.php?mod=spacecp&ac=profile&op=password&resend=1&from=active">重新激活邮件</a>
+</div>
+</div>
+<!--{/if}-->
+
+			
+			
+			
+			
+			
+			
+			
+			
+			<!--form end-->
+		</div>
+	</div>
+</div>
+
+<!--{template common/footer}-->

@@ -1,0 +1,33 @@
+<div class="bm bw0">
+    <div class="exfm">
+        <h2>{lang xplus:vote_choice_detail_edit}</h2> 
+        <h3><a href="plugin.php?id=xplus:admincr&mod=vote&action=choiceed&voteid=$voteid">&laquo;{lang xplus:vote_choice_detail_return}</a></h3>
+        <form method="POST" action="plugin.php?id=xplus:admincr&mod=vote&action=choicedetail">
+            <input type="hidden" value="{FORMHASH}" name="formhash"/>
+            <input type="hidden" value="{$voteid}" name="voteid"/>
+            <input type="hidden" value="{$choiceid}" name="choiceid"/>
+            <table cellspacing="0" cellpadding="0">
+                <tr>
+                    <th width="15%">{lang xplus:vote_choice_title}:</th>
+                    <td width="35%">
+                        <input class="px" type="text" value="$choicedetail[caption]" name="caption" size="25" />
+                    </td> 
+                    <th width="15%">{lang xplus:vote_choice_count}:</th>
+                    <td width="35%">
+                        <input class="px" type="text" value="$choicedetail[votenum]" name="votenum" size="20" />
+                    </td>  
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:vote_choice_url}:</th>
+                    <td width="35%">
+                        <input class="px" type="text" value="$choicedetail[detailurl]" name="detailurl" size="40" />
+                    </td> 
+                </tr>
+                <tr> 
+                    <td></td>
+                    <td><button class="pn" name="optiondetailsubmit" value="true" type="submit"><em>{lang xplus:submit}</em></button></td>
+                </tr>                       
+            </table>
+        </form>
+    </div>
+</div>

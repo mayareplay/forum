@@ -1,0 +1,44 @@
+/*用户状态区域*/
+.te-right{ display:inline; }
+.te-right  { float:right; list-style:none; display:inline;  height: 20px;padding: 0px; margin: 0px;}
+.te-right .y{ float: right;}
+
+#um {padding-top: 0;padding-right: 0;line-height: inherit;}
+
+#mu li { width:90px;}#mu a{ padding:0 18px; font-size:14px;}
+.wp {width:1004px}
+/*未验证用户提示 groupid = 8*/
+#announce {
+    position: relative;
+    height: 29px;
+    line-height: 30px;
+    background: #FFF2A7;
+    text-align: center;
+    font-weight: 700;
+    color: #FF4800;
+    border-bottom: 1px solid #E7CB5A;
+}
+#announce .close {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    padding-top: 15px;
+    width: 15px;
+    height: 0;
+    background: url(icon_common.png) no-repeat 4px 4px;
+    overflow: hidden;
+    z-index: 9;
+    cursor: pointer;
+}
+
+/*家园右侧栏目*/
+/*
+.ct2_a .mn{
+    width: 1030px;
+}
+*/
+
+/*格子广告去掉边框*/
+.a_t td{border: none; margin: 0px ;padding: 0px;}
+
+.savatar img{width: 48px; height: 48px;}

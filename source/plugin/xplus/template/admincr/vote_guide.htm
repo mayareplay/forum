@@ -1,0 +1,23 @@
+<div class="bm bw0"> 
+    <div class="exfm">
+        <h2>{lang xplus:vote_guide_new}</h2> 
+        <form method="POST" action="plugin.php?id=xplus:admincr&mod=vote&action=guide">
+            <input type="hidden" value="{FORMHASH}" name="formhash"/>
+            <table cellspacing="0" cellpadding="0">
+                <tr>
+                    <th width="15%">{lang xplus:vote_setting_title}:</th>
+                    <td width="45%">
+                        <input class="px" type="text" value="{$title}" name="title" size="40" />
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td colspan="3">
+                        <button type="submit" name="submit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

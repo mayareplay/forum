@@ -1,0 +1,88 @@
+<div class="bm bw0">  
+    <div class="exfm">
+        <h2>{lang xplus:poll_meminfo_add}</h2>
+        <form method="post" autocomplete="off" action="plugin.php?id=xplus:admincr&mod=poll&action=meminfo">
+            <input type="hidden" name="formhash" value="{FORMHASH}" />
+            <input type="hidden" name="pollid" value="{$pollid}" />
+            <!--{if $inguide}--><input type="hidden" value="1" name="inguide"/><!--{/if}-->
+            <table cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <td colspan="4">
+                        <p class="tips">
+                            {lang xplus:poll_meminfo_tips}
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:poll_meminfo_fieldname}:</th>
+                    <td width="35%">
+                        <span class="ftid">
+                            <select name="fieldid" id="fieldid" width="168" change="autofixtitle($('fieldid'));" class="ps">
+                            <option value="">{lang xplus:poll_meminfo_fieldname_select}</option>
+                            <!--{loop $profilelist $profile}-->
+                                <option value="$profile[fieldid]" id="pf_{$profile[fieldid]}">{$profile[title]}</option>
+                            <!--{/loop}-->    
+                            </select>
+                        </span>
+                    </td>
+                    <th width="15%">{lang xplus:poll_meminfo_label}:</th>
+                    <td width="35%"><input type="text" id="labeltitle" name="label" value="" class="px" size="20" style="width: 180px;" /></td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:poll_item_must}:</th>
+                    <td width="35%" class="rowform">
+                    <ul>
+                        <li><input type="radio" name="must" value="1" id="must_1" class="radio" checked="checked"/><label for="must_1">{lang xplus:yes}</label></li>
+                        <li><input type="radio" name="must" value="0" id="must_0" class="radio" /><label for="must_0">{lang xplus:no}</label></li>
+                    </ul>
+                    </td>
+                    <th width="15%"></th>
+                    <td width="35%"></td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td colspan="3">
+                        <button type="submit" name="addsubmit" value="true" class="pn vm"><em>{lang add}</em></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <form method="POST" action="plugin.php?id=xplus:admincr&mod=poll&action=meminfo"> 
+        <input type="hidden" value="{FORMHASH}" name="formhash"/>
+        <input type="hidden" value="$pollid" name="pollid"/>   
+        <!--{if $inguide}--><input type="hidden" value="1" name="inguide"/><!--{/if}-->  
+        <table class="dt lt">
+            <tr>
+                <th width="20"></th>
+				<th width="60">{lang xplus:poll_item_displayorder}</th>
+                <th width="80">{lang xplus:poll_meminfo_id}</th>
+                <th width="240">{lang xplus:poll_meminfo_label}</th>
+                <th>{lang xplus:poll_meminfo_must}</th>              
+			</tr>
+            <!--{loop $currentprofile $fieldid $profile}-->
+            <tr>  
+                <td><input type="checkbox" value="{$profile[profileid]}" name="delete[]" class="pc" /></td>                  
+                <td><input type="text" size="2" value="{$profile[displayorder]}" name="displayorder[$fieldid]" class="px"/></td>
+                <td>{$fieldid}</td>
+                <td><input type="text" size="35" value="{$profile[label]}" name="label[$fieldid]" class="px" /></td>
+                <td><input type="checkbox" value="$fieldid" name="must[$fieldid]" class="pc" {if $profile[must]} checked="true"{/if} /></td>
+            </tr>
+            <!--{/loop}-->
+            <tr>
+                <td class="nb" colspan="8" >
+                    <label for="chkall" onclick="checkall(this.form, 'delete')"><input type="checkbox" name="chkall" id="chkall" class="pc" />{lang delete}</label>&nbsp;
+                    <button type="submit" name="modifysubmit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                </td>
+            </tr>
+        </table> 
+    </form> 
+</div>
+<script type="text/javascript">
+    var profile = [];
+    {loop $profilelist $profile}
+    profile['{$profile[fieldid]}'] = '{$profile[title]}';
+    {/loop}
+</script> 

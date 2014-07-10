@@ -1,0 +1,97 @@
+<div class="bm bw0">  
+    <div class="exfm">
+        <h2>{lang xplus:poll_nav_setting} - {$title}</h2> 
+        <form method="POST" action="plugin.php?id=xplus:admincr&mod=poll&action=setting">
+            <input type="hidden" value="{FORMHASH}" name="formhash"/>
+            <input type="hidden" value="$pollid" name="pollid"/>
+            <!--{if $inguide}--><input type="hidden" value="1" name="inguide"/><!--{/if}-->
+            <table cellspacing="0" cellpadding="0">
+                <tr>
+                    <th width="15%">{lang xplus:poll_setting_title}:</th>
+                    <td width="45%">
+                        <input class="px" type="text" value="{$title}" name="newsetting[title]" size="40" />
+                    </td>
+                    <td width="40%"></td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:poll_setting_available}:</th>
+                    <td width="45%">
+                        <ul>
+                            <li><label><input type="radio" onclick="" {if $poll_setting[available] == 1}checked="checked"{/if} value="1" name="newsetting[available]" class="radio">{lang xplus:yes}</label></li>
+                            <li><label><input type="radio" onclick="" {if $poll_setting[available] == 0}checked="checked"{/if} value="0" name="newsetting[available]" class="radio">{lang xplus:no}</label></li>
+                        </ul>
+                    </td>
+                    <td width="40%" class="tips2">{lang xplus:poll_setting_available_des}</td>
+                </tr>
+                <tr> 
+                    <th width="15%">{lang xplus:poll_setting_expiry}:</th> 
+                    <td width="45%">
+                        <input class="px" type="text" value="$poll_setting[starttime]" name="newsetting[starttime]" size="15" onclick="showcalendar(event, this);"/> --
+                        <input class="px" type="text" value="$poll_setting[endtime]" name="newsetting[endtime]" size="15" onclick="showcalendar(event, this);"/>
+                    </td>
+                <td width="40%" class="tips2">{lang xplus:poll_setting_expiry_des}</td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:poll_setting_allowguest}:</th>
+                    <td width="45%">
+                        <ul>
+                            <li><label><input type="radio" onclick="" {if $poll_setting[allowalluser] == 1}checked="checked"{/if} value="1" name="newsetting[allowalluser]" class="radio">{lang xplus:yes}</label></li>
+                            <li><label><input type="radio" onclick="" {if $poll_setting[allowalluser] == 0}checked="checked"{/if} value="0" name="newsetting[allowalluser]" class="radio">{lang xplus:no}</label></li>
+                        </ul>
+                    </td>
+                    <td width="40%" class="tips2">{lang xplus:poll_setting_allowguest_des}</td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:poll_setting_loaction}:</th>
+                    <td width="45%">
+                        <input class="px" type="text" value="{$poll_setting[forwardurl]}" name="newsetting[forwardurl]" size="40" />
+                    </td>
+                    <td width="40%" class="tips2">{lang xplus:poll_setting_loaction_des}</td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:poll_setting_template}:</th>
+                    <td width="45%">
+                        <span class="ftid">
+                            <select name="newsetting[template]" id="template" width="168" class="ps">
+                            <!--{loop $templates $template}-->
+                                <option value="$template[templateid]" {if $poll_setting[templateid] == $template[templateid]}selected="selected" {/if} >{$template[name]}</option>
+                            <!--{/loop}-->
+                            </select>
+                        </span>
+                    </td>
+                    <td width="40%" class="tips2"></td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:poll_setting_introduce}:</th>
+                    <td width="45%">
+                        <textarea rows="6" name="newsetting[introduce]" id="introduce" cols="50" class="tarea tta pt">$poll_setting[introduce]</textarea>
+                    </td>
+                    <td width="40%" class="tips2">{lang xplus:poll_setting_introduce_des}</td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:poll_setting_keywords}:</th>
+                    <td width="45%">
+                        <input class="px" type="text" value="$poll_setting[keywords]" name="newsetting[keywords]" size="40" />
+                    </td>
+                    <td width="40%" class="tips2">{lang xplus:poll_setting_keywords_des}</td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:poll_setting_description}:</th>
+                    <td width="45%">
+                        <textarea rows="6" name="newsetting[description]" id="description" cols="50" class="tarea tta pt">$poll_setting[description]</textarea>
+                    </td>
+                    <td width="40%" class="tips2">{lang xplus:poll_setting_introduce_des}</td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td colspan="3">
+                        <button type="submit" name="settingsubmit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" reload="1">
+    simulateSelect('template');
+</script>

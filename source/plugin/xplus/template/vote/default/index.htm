@@ -1,0 +1,127 @@
+<!--{template xplus:common/header}-->
+<!--{template xplus:common/nav_header}-->
+<script type="text/javascript">
+	var charset = "{CHARSET}";
+	var boxes = document.getElementsByName("choose_value[]");
+	var with_img = {if !empty($ismagevote)} true {else} false {/if};
+	var choice_num = {if $vote['choicenum'] > 0} {$vote['choicenum']} {else} 0 {/if};
+	var choice_arr = new Array();
+	var iniframe = {if $iniframe} true {else} false {/if};
+</script>
+
+<!--{if $ismagevote}-->
+    <!--{if !$iframe && $vote['lazyload']}-->
+    	<script type="text/javascript" src="static/js/jquery-1.4.2.min.js"></script>
+    	<script type="text/javascript" src="static/js/jquery.lazyload.mini.js"></script>
+    	<script type="text/javascript">
+    		var jq = jQuery.noConflict();
+    		// Delay Image
+    		jq(function() {
+    			jq("#pollcontent img").lazyload({
+    				placeholder : "static/image/common/loading.gif",
+    				effect : "fadeIn"
+    			});
+    		});
+    	</script>
+    <!--{/if}-->
+<!--{/if}-->
+
+<!--{if $so}-->{$so}<!--{/if}-->
+
+<div id="wp" class="wp">
+	<div class="mn">
+		<div class="info wx"> 
+			<h1>$vote[title]</h1>
+            <p class="description">$vote[description]</p>
+		</div>
+        <form id="voteform" onsubmit="ajaxpost('voteform', 'return_voteresult'); return false;" action="plugin.php?id=xplus:vote&inajax=1&action=votesubmit" method="post">
+			<input type="hidden" name="handlekey" value="voteresult" />
+			<input type="hidden" name="vid" value="$voteid" />
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+            <!--{if $ismagevote}-->
+            <input type="hidden" id="choose_value" name="choose_value" value="" />
+            <div class="vote" id="votecontent">
+                <ul class="ppl cl">
+    				<!--{loop $choices $key $value}-->
+    				<li>
+    					<div class="thumb">
+    						<a title="{$value['caption']}" {if $value['detailurl']} href="{$value['detailurl']}" target="_blank" {else} onclick="pollzoom($('option_image_{$value['choiceid']}'))"{/if}><img id="option_image_{$value['choiceid']}" src="$value[imagethumb]" bigimg="{$value['image']}" choiceid="{$value['choiceid']}" prevchoiceid="{$value['prevchoiceid']}" nextchoiceid="{$value['nextchoiceid']}" alt="{$value['caption']}" /></a>
+    					</div>
+    					<div class="c">
+    						<h3><a {if $value['detailurl']} href="{$value['detailurl']}" target="_blank" {else} onclick="pollzoom($('option_image_{$value['choiceid']}'))"{/if}>$value['caption']</a></h3>
+    						<p>
+    							<button type="submit" class="btn_poll" onclick="ajaxsmallsubmit($value['choiceid'])">{lang xplus:vote_vote}</button>
+    							<!--{if $isshowresult}--><span id="pollnum_{$value['choiceid']}">$value['votenum']</span>{lang xplus:vote_num}<!--{/if}-->
+    						</p>
+    					</div>
+    				</li>
+    				<!--{/loop}-->
+                </ul>
+                <div id="multipage" class="cl">
+                	$multi
+                </div>
+                <script type="text/javascript">
+    			<!-- {if $poll_setting['lazyload']} -->
+    				jq(function() {
+    					jq("#pollcontent img").lazyload({
+    						placeholder : "static/image/common/loading.gif",
+    						effect : "fadeIn"
+    					});
+    				});
+    			<!-- {/if} -->
+    				//setiframeheight('xplus_iframes');
+    			</script>
+            </div>	
+            <!--{else}-->
+            <div class="vote" id="votecontent">
+                <table cellspacing="0" cellpadding="0">
+					<thead>
+						<tr>
+							<th class="o">&nbsp; </th>
+							<th>{lang xplus:vote_choice}</th>
+							<th><!--{if $isshowresult}-->{lang xplus:vote_rate}<!--{/if}--></th>
+							<th></th>
+							<th><!--{if $isshowresult}-->{lang xplus:vote_nums}<!--{/if}--></th>
+						</tr>
+					</thead>
+					<!--{loop $choices $value}-->
+					<tbody>
+						<tr>
+							<td class="o">
+								<!--{if $vote[type]}-->
+								<input type="checkbox" id="select_id_$value[choiceid]" name="choose_value[]" value="$value[choiceid]" {$disable}" onclick="checknum(this)">
+								<!--{else}-->
+								<input type="radio" id="select_id_$value[choiceid]" name="choose_value" value="$value[choiceid]" {$disable}>
+								<!--{/if}-->
+							</td>
+							 <td class="title">
+							 	<label for="select_id_$value[choiceid]">$value[caption]</label>
+							 </td>
+                            <!--{eval $percent = round(($value[votenum] / $totalcount) * 100, 2);}-->
+							 <td>
+								<!--{if $isshowresult}-->
+								<div class="pbg">
+									<div class="pbr" style="width: {$percent}%;"></div>
+								</div>
+								<!--{/if}-->
+							</td>
+							<td class="num"><!--{if $isshowresult}-->{$percent}%<!--{/if}--></td>
+							<td class="num"><!--{if $isshowresult}--><span id="pollnum_{$value['choiceid']}">$value['votenum']</span><!--{/if}--></td>
+						</tr>
+					</tbody>
+					<!--{/loop}-->
+				</table>
+				<div id="multipage">
+					$multi
+				</div>
+            </div>
+            <div class="btn cl">
+                <input type="submit" name="votesubmit" class="submit" value="{lang xplus:submit}" />
+			</div>
+            <!--{/if}-->
+  		</form>
+		<div id="return_voteresult" sytle="display:none;">&nbsp;</div>
+	<!--{template xplus:common/nav_footer}-->
+	</div>
+</div>
+<!--{template xplus:common/footer}-->

@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* CSS Document */
+
+html { overflow-x: hidden  !important; }
+body { background:#f2f2f2;}
+
+
+#menu { padding-left:0px !important;}
+	/* ios7 bg */
+	#menu { background:#333 url(vk_menu_bg.png) repeat-y 0% 30%;}
+#menu  ul { padding-left:0px !important;}
+#menu  li { text-indent:40px;}
+#menu  li a {color:#fff; line-height:30px; padding-top:6px; padding-bottom:6px; }
+
+
+.vk_icon_menu_home { background:url(vk_icon_menu_home.png)no-repeat 6% 50%; background-size: 20px 20px; }
+.vk_icon_menu_bbs { background: url(vk_icon_menu_bbs.png) no-repeat 6% 50%; background-size: 20px 20px; }
+.vk_icon_menu_hot { background: url(vk_icon_menu_hot.png) no-repeat 6% 50%; background-size: 20px 20px; }
+.vk_icon_menu_fav { background: url(vk_icon_menu_fav.png) no-repeat 6% 50%; background-size: 20px 20px; }
+.vk_icon_menu_thread { background: url(vk_icon_menu_thread.png) no-repeat 6% 50%; background-size: 20px 20px; }
+.vk_icon_menu_pm { background: url(vk_icon_menu_pm.png) no-repeat 6% 50%; background-size: 20px 20px; }
+.vk_icon_menu_tx { background: url(vk_icon_menu_tx.png) no-repeat 6% 50%; background-size: 20px 20px; }
+.vk_icon_menu_profile { background: url(vk_icon_menu_profile.png) no-repeat 6% 50%; background-size: 20px 20px; }
+.vk_icon_menu_computer { background: url(vk_icon_menu_computer.png) no-repeat 6% 50%; background-size: 20px 20px; }
+.vk_icon_menu_logout { background: url(vk_icon_menu_logout.png) no-repeat 6% 50%; background-size: 20px 20px; }
+
+.vk_icon_menu_pic { background: url(vk_icon_menu_pic.png) no-repeat 6% 50%; background-size: 20px 20px; }
+
+
+/* ios7 */
+.vk_icon_menu_home , .vk_icon_menu_bbs , .vk_icon_menu_hot, .vk_icon_menu_fav , .vk_icon_menu_thread, .vk_icon_menu_pm, .vk_icon_menu_profile, .vk_icon_menu_computer, .vk_icon_menu_logout , .vk_icon_menu_pic,.vk_icon_menu_tx  { background-size: 30px 30px; }
+
+
+  .mm-menu .mm-list > li.mm-selected > a:not(.mm-subopen),
+  .mm-menu .mm-list > li.mm-selected > span {
+    background-color:#181818; }
+
+
+.mm-list > li:not(.mm-subtitle):not(.mm-label):not(.mm-noresults):after {  margin-left:0 /*20px*/; }
+
+
+

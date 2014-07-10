@@ -1,0 +1,23 @@
+<!--{template common/header}-->
+<form action="plugin.php?id=threadlink:mod&action={$action}&lid={$lid}&aid={$aid}&infloat=yes&amp;{$action}submit=yes" method="post" onsubmit="ajaxpost(this.id, 'return_mods', 'return_mods', 'onerror');return false;" id="threadlinkform" fwin="mods">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<input type="hidden" name="md5" value="{$_G['gp_md5']}">
+	<div id="main_threadlink">
+		<h3 class="flb">
+			<em id="returnmessage">{lang threadlink:editimage}</em>
+			<!--{if $_G['inajax']}--><span><a href="javascript:;" class="flbc" onclick="hideWindow('threadlink')" title="{lang close}">{lang close}</a></span><!--{/if}-->
+		</h3>
+		<div class="c">
+			<table cellspacing="0" cellpadding="0" class="tfm">
+				<tr>
+					<th>{lang threadlink:picurl}</th>
+					<td><input type="text" name="picurl" value="" class="px"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="o pns">
+			<button type="submit" name="editimagesubmit" id="editimage" class="pn pnc" value="true"><strong>{lang threadlink:confirm}</strong></button>
+		</div>
+	</div>
+</form>
+<!--{template common/footer}-->

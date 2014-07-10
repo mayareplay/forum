@@ -1,0 +1,260 @@
+<div class="bm bw0">
+    <!--{if $manage == 'category'}-->
+    <div class="exfm">
+        <h2>{lang xplus:poll_category_add}</h2>
+        <h3><a href="plugin.php?id=xplus:admincr&mod=poll&action=items&manage=item&pollid=$pollid{if $inguide}&inguide=1{/if}">&laquo;{lang xplus:poll_category_retrun}</a></h3>
+        <form method="post" autocomplete="off" action="plugin.php?id=xplus:admincr&mod=poll&action=items&manage=category">
+            <input type="hidden" name="formhash" value="{FORMHASH}" />
+            <input type="hidden" value="$pollid" name="pollid"/>
+            <!--{if $inguide}--><input type="hidden" value="1" name="inguide"/><!--{/if}-->
+            <table>
+                <tr>
+                    <td colspan="4">
+                        <p class="tips">{lang xplus:poll_category_tips}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="15%">{lang xplus:poll_category_name}</th>
+                    <td width="35%"><input type="text" name="caption" value="" class="px" style="width: 210px;" /></td>
+                    <td style="color: silver;">
+                        {lang xplus:poll_category_name_input}
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td colspan="3">
+                        <button type="submit" name="addsubmit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <form method="POST" action="plugin.php?id=xplus:admincr&mod=poll&action=items&manage=category"> 
+        <input type="hidden" value="{FORMHASH}" name="formhash"/>
+        <input type="hidden" value="$pollid" name="pollid"/> 
+        <!--{if $inguide}--><input type="hidden" value="1" name="inguide"/><!--{/if}-->    
+        <table class="dt lt">
+            <tr>
+                <th width="5">&nbsp;</th>
+				<th width="60">{lang xplus:poll_category_displayorder}</th>
+                <th>{lang xplus:poll_category_name}</th>
+            </tr>
+            <!--{loop $categorylist $category}-->
+            <tr>
+                <td><input type="checkbox" value="{$category[categoryid]}" name="delete[]" class="pc"/></td>  
+                <td><input type="text" size="2" value="{$category[displayorder]}" name="displayorder[{$category[categoryid]}]" class="px"/></td>
+                <td><input type="text" size="80" value="{$category[caption]}" name="caption[{$category[categoryid]}]" class="px"/></td>
+            </tr>
+            <!--{/loop}-->
+            <tr>
+                <td class="nb" colspan="9">
+                    <label for="chkall" onclick="checkall(this.form, 'delete')"><input type="checkbox" name="chkall" id="chkall" class="pc" />{lang delete}</label>&nbsp;
+                    <button type="submit" name="editsubmit" value="true" class="pn"><em>提交</em></button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <!--{elseif $manage == 'item'}-->
+    <div class="exfm">
+        <h2>{lang xplus:poll_item_add}</h2>
+        <h3><a href="plugin.php?id=xplus:admincr&mod=poll&action=items&manage=category&pollid=$pollid{if $inguide}&inguide=1{/if}">&raquo;{lang xplus:poll_item_return}</a></h3>
+        <form method="post" autocomplete="off" action="plugin.php?id=xplus:admincr&mod=poll&action=items&manage=item">
+            <input type="hidden" name="formhash" value="{FORMHASH}" />
+            <input type="hidden" value="$pollid" name="pollid"/>
+            <!--{if $inguide}--><input type="hidden" value="1" name="inguide"/><!--{/if}-->
+            <table cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <th width="15%">{lang xplus:poll_item_title}:</th>
+                    <td width="35%"><input type="text" name="subject" value="" class="px" style="width: 210px;" /></td>
+                    <th width="15%">{lang xplus:poll_item_type}:</th>
+                    <td width="35%">
+                        <span class="ftid">
+                            <select name="type" id="type" width="168" class="ps">
+                                <option value="">{lang xplus:poll_item_type_select}</option>
+                                <option value="radio">{lang xplus:poll_type_radio}</option>
+                                <option value="checkbox">{lang xplus:poll_type_checkbox}</option>
+                                <option value="text">{lang xplus:poll_type_text}</option>
+                                <option value="textarea">{lang xplus:poll_type_textarea}</option>
+                                <option value="select">{lang xplus:poll_type_select}</option>
+                            </select>
+                        </span>
+                    </td>
+                </tr> 
+                <tr> 
+                    <th width="15%">{lang xplus:poll_item_must}:</th> 
+                    <td width="35%" class="rowform">
+                        <ul>
+                            <li><label><input type="radio" name="must" value="1" class="radio" checked="checked"/>{lang xplus:yes}</label></li>
+                            <li><label><input type="radio" name="must" value="0" class="radio" />{lang xplus:no}</label></li>
+                        </ul>
+                    </td>
+                    <th width="15%">{lang xplus:poll_item_category}:</th>
+                    <td width="35%">
+                        <span class="ftid">
+                            <select name="category" id="category" width="168" class="ps">
+                                <option value="">{lang xplus:poll_item_category_select}</option>
+                                <!--{loop $categorylist $category}-->
+                                <option value="$category[categoryid]">{$category[caption]}</option>
+                                <!--{/loop}-->
+                            </select>
+                        </span>
+                    </td>
+                </tr>
+                <tr>  
+                    <th width="15%">{lang xplus:poll_item_option}:</a></th>
+                    <td width="35%">
+                        <ul id="option">
+                            <li>1.<input type="text" id="option_1" name="options[]" value="" class="px" size="30"/></li>
+                            <li>2.<input type="text" id="option_2" name="options[]" value="" class="px" size="30"/></li>
+                            <li>3.<input type="text" id="option_3" name="options[]" value="" class="px" size="30"/></li>
+                            <li>4.<input type="text" id="option_4" name="options[]" value="" class="px" size="30"/></li>
+                        </ul>
+                        <a href="javascript::" onclick="addpolloptions('option');">[+]&nbsp;{lang xplus:poll_item_option_add}</a>
+                    </td>
+                    <td colspan="2">
+                        <div id="attachnotice_img" class="mbm xl" style="color: silver;"> 
+                            {lang xplus:poll_item_option_tips}
+                        </div>
+                    </td>
+                </tr>                         
+                <tr>
+                    <th>&nbsp;</th>
+                    <td colspan="3">
+                        <button type="submit" name="addsubmit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>               
+    </div>
+    <form method="POST" action="plugin.php?id=xplus:admincr&mod=poll&action=items&manage=item"> 
+        <input type="hidden" value="{FORMHASH}" name="formhash"/>
+        <input type="hidden" value="$pollid" name="pollid"/>  
+        <!--{if $inguide}--><input type="hidden" value="1" name="inguide"/><!--{/if}-->   
+        <table class="dt lt">
+            <tr>
+                <th width="5">&nbsp;</th>
+				<th width="60">{lang xplus:poll_item_displayorder}</th>
+                <th>{lang xplus:poll_item_title}</th>
+				<th width="80">{lang xplus:poll_item_type}</th>
+                <th width="160">{lang xplus:poll_item_category}</th>
+                <th width="60">{lang xplus:poll_item_enable}</th>
+                <th width="60">{lang xplus:poll_item_must}</th>
+				<th width="100">{lang xplus:poll_item_operate}</th>           
+			</tr>
+            <!--{loop $itemlist $item}-->
+            <tr> 
+                <td><input type="checkbox" value="{$item[itemid]}" name="delete[]" class="pc"/></td>             
+                <td><input type="text" size="2" value="{$item[displayorder]}" name="displayorder[{$item[itemid]}]" class="px"/></td>
+                <td>{$item[subject]}</td>
+                <td>{$item[type]}</td>
+                <td>
+                    <!--{if $categorylist}-->
+                        <select style="width: 120px;" name="category[{$item[itemid]}]">
+                        <option value="">{lang xplus:poll_item_category_select}</option>
+                        <!--{loop $categorylist $category}-->
+                            <option value="{$category[categoryid]}" <!--{if $item[categoryid] == $category[categoryid]}--> selected=""<!--{/if}--> >{$category[caption]}</option>
+                        <!--{/loop}-->
+                        </select>
+                    <!--{else}-->
+                    {lang xplus:poll_item_nocategory}
+                    <!--{/if}-->
+                </td>
+                <td><input type="checkbox" value="$item[itemid]" name="enable[]" class="pc" {if $item[enable]} checked="true"{/if} /></td>
+                <td><input type="checkbox" value="$item[itemid]" name="must[]" class="pc" {if $item[must]} checked="true"{/if} /></td>
+                <td><a href="plugin.php?id=xplus:admincr&mod=poll&action=items&manage=detail&pollid={$pollid}&itemid={$item[itemid]}{if $inguide}&inguide=1{/if}">{lang xplus:poll_item_edit}</a></td>
+            </tr>
+            <!--{/loop}-->
+            <tr>
+                <td class="nb" colspan="9">
+                    <label for="chkall" onclick="checkall(this.form, 'delete')"><input type="checkbox" name="chkall" id="chkall" class="pc" />{lang delete}</label>&nbsp;
+                    <button type="submit" name="editsubmit" value="true" class="pn"><em>{lang submit}</em></button>
+                </td>
+                <!--<td class="nb" colspan="8" ><button type="submit" name="step4_submit" value="true" class="pn"><em>{lang xplus:guide_finish}</em></button></td>-->
+            </tr>
+        </table> 
+    </form> 
+    <!--{elseif $manage == 'detail'}-->
+    <div class="exfm">
+        <h2>{lang xplus:poll_item_detail_edit}</h2>
+        <h3><a href="plugin.php?id=xplus:admincr&mod=poll&action=items&manage=item&pollid=$pollid{if $inguide}&inguide=1{/if}">&laquo;{lang xplus:poll_item_detail_return}</a></h3>
+        <form method="post" autocomplete="off" action="plugin.php?id=xplus:admincr&mod=poll&action=items&manage=detail">
+            <input type="hidden" name="formhash" value="{FORMHASH}" />
+            <input type="hidden" value="$pollid" name="pollid"/>
+            <input type="hidden" value="$itemid" name="itemid"/>
+            <!--{if $inguide}--><input type="hidden" value="1" name="inguide"/><!--{/if}-->
+            <table cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <th width="15%">{lang xplus:poll_item_title}:</th>
+                    <td width="35%"><input type="text" name="subject" value="{$item[subject]}" class="px" style="width: 210px;" /></td>
+                    <th width="15%">{lang xplus:poll_item_type}:</th>
+                    <td width="35%">
+                        <span class="ftid">
+                            <select name="type" id="type" width="168" class="ps">
+                                <option value="">{lang xplus:poll_item_type_select}</option>
+                                <option value="radio" {if $item[type] == 'radio'} selected="select"{/if}>{lang xplus:poll_type_radio}</option>
+                                <option value="checkbox" {if $item[type] == 'checkbox'} selected="select"{/if}>{lang xplus:poll_type_checkbox}</option>
+                                <option value="text" {if $item[type] == 'text'} selected="select"{/if}>{lang xplus:poll_type_text}</option>
+                                <option value="textarea" {if $item[type] == 'textarea'} selected="select"{/if}>{lang xplus:poll_type_textarea}</option>
+                                <option value="select" {if $item[type] == 'select'} selected="select"{/if}>{lang xplus:poll_type_select}</option>
+                            </select>
+                        </span>
+                    </td>
+                </tr> 
+                <tr> 
+                    <th width="15%">{lang xplus:poll_item_must}:</th> 
+                    <td width="35%" class="rowform">
+                        <ul>
+                            <li><label><input type="radio" name="must" value="1" class="radio" {if $item[must] == 1} checked="checked" {/if}/>{lang xplus:yes}</label></li>
+                            <li><label><input type="radio" name="must" value="0" class="radio" {if $item[must] == 0} checked="checked" {/if} />{lang xplus:no}</label></li>
+                        </ul>
+                    </td>
+                    <th width="15%">{lang xplus:poll_item_category}:</th>
+                    <td width="35%">
+                        <span class="ftid">
+                            <select name="category" id="category" width="168" class="ps">
+                                <option value="">{lang xplus:poll_item_category_select}</option>
+                                <!--{loop $categorylist $category}-->
+                                <option value="$category[categoryid]" {if $item[categoryid] == $category[categoryid]} selected="selected"{/if}>{$category[caption]}</option>
+                                <!--{/loop}-->
+                            </select>
+                        </span>
+                    </td>
+                </tr>
+                <tr>  
+                    <th width="15%">{lang xplus:poll_item_option}:</a></th>
+                    <td colspan="2">
+                        <ul id="option">
+                            <!--{eval $i = 1}-->
+                            <!--{loop $optionlist $option}-->
+                            <li>{$i}.<input type="text" id="option_{$i}" name="curoptions[{$option[optionid]}]" value="{$option[caption]}" class="px" size="30"/>
+                                <input type="text" name="displayorder[{$option[optionid]}]" value="{$option[displayorder]}" class="px" size="2"/>
+                                <input type="checkbox" value="{$option[optionid]}" name="delete[]" class="pc"/>
+                            </li>
+                            <!--{eval $i++}-->
+                            <!--{/loop}-->
+                        </ul>
+                        <a href="javascript::" onclick="addpolloptions('option');">[+]&nbsp;{lang xplus:poll_item_option_add}</a>
+                        <!--{if $optionlist}--><span style="float: right; right: 61px; position: relative;"><label for="chkall" onclick="checkall(this.form, 'delete')"><input type="checkbox" name="chkall" id="chkall" class="pc" />全部删除</label></span><!--{/if}-->
+                    </td>
+                    <td colspan="1">
+                        <div id="attachnotice_img" class="mbm xl" style="color: silver;"> 
+                            {lang xplus:poll_item_option_tips2}                          
+                        </div>
+                    </td>
+                </tr>            
+                <tr>
+                    <th>&nbsp;</th>
+                    <td colspan="3">
+                        <button type="submit" name="editsubmit" value="true" class="pn vm"><em>{lang submit}</em></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>               
+    </div>
+    <!--{/if}-->    
+</div>

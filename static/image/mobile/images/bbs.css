@@ -1,0 +1,57 @@
+
+.hotlist li a:visited{ color:#8D8D8D;}
+.hotlist li a{ color:#4C4C4C;}
+    
+.clear{ clear: both;}
+.user_fun .on a.icon_hotthread {
+background-position: -112px -28px;
+
+}
+.user_fun a.icon_userinfo {
+background-position: 0 0;
+
+}
+.user_fun a.icon_threadlist {
+background-position: -28px 0;
+
+}
+.user_fun a.icon_search {
+background-position: -56px 0;
+
+}
+.user_fun .on{ background:none;}
+.user_fun  a.icon_homequote {
+background-position:-142px 0;
+}
+.user_fun a.icon_homequote:hover,.user_fun .on a.icon_homequote{background-position:-142px -28px;}
+.hdc { margin-bottom:0px;padding: 8px 10px 8px 0;height: 32px; background-color:#C00;}
+
+.hdc h2 {
+float: left;
+padding: 0px 0px 0 10px;
+}
+.user_fun li {float: right;padding: 0px 5px 0px 10px;}
+.daohang{ display:block;background-color: #D9D9DB; width:100%; z-index:30000; height:34px; line-height:34px; min-width:320px; overflow:hidden;}
+.daohang ul{ padding-top:0px; margin-left:5px;}
+
+
+.daohang ul li{ width:45px; float: left; text-align:center;}
+.daohang ul li a{font-size:16px;}
+.li_top{ float:left;}
+.li_bottom{ float:right;}
+.by{}.zhaiyao{ display:none;font-size:14px; color:#8D8D8D; }
+.dianji{font-size: 12px;float: right;
+color: #C0C0C0;}
+.threadlist li span.li_img{ float:right; margin-bottom:22px;}
+.ming{  display:block; position:absolute; bottom:5px;}
+
+.bot_li{ position:absolute; bottom:5px; right:10px;}
+
+.sour{ position: absolute; margin-right:5px; right:52px;font-size:12px; color:silver; bottom:5px;}
+.timg{ border:1px solid #66C;}
+
+.error_text{display:none}
+.selected a{ padding:1px 5px 1px 5px; color:#fff; background-color:#C00;border-radius:2px;}
+
+
+
